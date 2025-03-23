@@ -1,4 +1,4 @@
-package com.example.habitapp.presentation.viewModel
+package com.example.habitapp.presentation.components.getUserData
 
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
