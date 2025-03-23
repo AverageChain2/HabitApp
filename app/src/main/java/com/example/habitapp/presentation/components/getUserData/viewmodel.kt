@@ -1,4 +1,4 @@
-package com.example.habitapp.presentation.viewModel
+package com.example.habitapp.presentation.components.getUserData
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
