@@ -19,9 +19,11 @@ import com.example.habitapp.R
 import com.example.habitapp.presentation.screens.AddScreen
 import com.example.habitapp.presentation.screens.HomeScreen
 import com.example.habitapp.presentation.screens.LoginScreen
+import com.example.habitapp.presentation.screens.Register.RegisterScreen
 
 open class NavScreen(var icon:ImageVector, var selectedIcon: ImageVector, var route:String){
     object Login : NavScreen(Icons.Outlined.Home, Icons.Filled.Home, "Login")
+    object Register : NavScreen(Icons.Outlined.Home, Icons.Filled.Home, "Register")
     object Home : NavScreen(Icons.Outlined.Home, Icons.Filled.Home, "Home")
     object Add: NavScreen(Icons.Outlined.Add, Icons.Filled.Add, "Add")
     object Exit: NavScreen(Icons.Outlined.Lock, Icons.Filled.Lock, "Logout")
@@ -36,9 +38,12 @@ fun NavigationGraph(
     modifier: Modifier
 ) {
     NavHost(navController,
-        startDestination = NavScreen.Login.route) {
+        startDestination = NavScreen.Register.route) {
         composable(NavScreen.Login.route) {
             LoginScreen(stringResource(R.string.login_button), simulateLogin, modifier)
+        }
+        composable(NavScreen.Register.route) {
+            RegisterScreen(stringResource(R.string.register_button), modifier)
         }
         composable(NavScreen.Home.route) {
             HomeScreen(stringResource(R.string.home_button), modifier, navController)
