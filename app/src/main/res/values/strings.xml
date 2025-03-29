@@ -1,8 +1,35 @@
 <resources>
-    <string name="app_name">habitApp</string>
+    <string name="app_name">HabitApp</string>
     <string name="add_button">Add</string>
     <string name="home_button">Home</string>
     <string name="login_button">Login</string>
     <string name="today">Today</string>
     <string name="yesterday">Yesterday</string>
+
+    <!-- Responses -->
+    <string name="id_hint">Id</string>
+    <string name="id_error_message">Id is blank</string>
+    <string name="first_name_hint">First Name</string>
+    <string name="first_name_error_message">Firstname is blank</string>
+    <string name="surname_hint">Surname</string>
+    <string name="surname_error_message">Surname is blank</string>
+    <string name="tel_no_hint">Telephone number</string>
+    <string name="tel_no_error_message">Telephone number is blank</string>
+    <!-- Add Screen -->
+    <string name="add">Add</string>
+    <!-- Home Screen -->
+    <string name="home">Home</string>
+    <!-- LoginScreen -->
+    <string name="email">Email</string>
+    <string name="email_error_message">Please insert a valid
+email.</string>
+    <string name="password">Password</string>
+    <string name="password_error_message">Please insert a valid
+password</string>
+    <!-- Sign Up Screen -->
+    <string name="verify_email">Verify email</string>
+    <string name="forgot_password">Forgot password</string>
+    <string name="sign_up_button">Sign Up</string>
+    <string name="back_button">Back</string>
+    <string name="submit_button">Submit</string>
 </resources>
