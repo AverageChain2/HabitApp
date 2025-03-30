@@ -22,15 +22,15 @@ class RegisterViewModel (private val repo: AuthRepo) : ViewModel() {
         return password.length >=6 //6 minimum
     }
 
-    var signUpResponse by mutableStateOf<Response<Boolean>>(Response.Success(false))
+    var registerResponse by mutableStateOf<Response<Boolean>>(Response.Success(false))
         private set
 
     private var sendEmailVerificationResponse by mutableStateOf<Response<Boolean>>(Response.Success(false))
         private set
 
-    fun signUpWithEmailAndPassword() = viewModelScope.launch {
-        signUpResponse = Response.Loading
-        signUpResponse = repo.firebaseSignUpWithEmailAndPassword(email, password)
+    fun registerWithEmailAndPassword() = viewModelScope.launch {
+        registerResponse = Response.Loading
+        registerResponse = repo.firebaseRegisterWithEmailAndPassword(email, password)
     }
 
     fun sendEmailVerification() = viewModelScope.launch {

@@ -10,23 +10,23 @@ import com.example.habitapp.presentation.screens.registerScreen.RegisterViewMode
 fun Register(vm: RegisterViewModel,
            sendEmailVerification: () -> Unit,
            showVerifyEmailMessage: () -> Unit,
-           showFailureToSignUpMessage: () -> Unit
+           showFailureToRegisterMessage: () -> Unit
 )  {
-    when(val signUpResponse = vm.signUpResponse) {
+    when(val registerResponse = vm.registerResponse) {
         is Response.Loading, Response.Startup -> ProgressBar()
         is Response.Success -> {
-            val isUserSignedUp = signUpResponse.data
-            LaunchedEffect(isUserSignedUp) {
-                if (isUserSignedUp) {
+            val isUserRegistered = registerResponse.data
+            LaunchedEffect(isUserRegistered) {
+                if (isUserRegistered) {
                     sendEmailVerification()
                     showVerifyEmailMessage()
                 }
             }
         }
-        is Response.Failure -> signUpResponse.apply {
+        is Response.Failure -> registerResponse.apply {
             LaunchedEffect(e) {
                 print(e)
-                showFailureToSignUpMessage()
+                showFailureToRegisterMessage()
             }
         }
     }

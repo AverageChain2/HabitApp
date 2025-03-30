@@ -19,13 +19,12 @@ import com.example.habitapp.ViewModelFactory
 import com.example.habitapp.presentation.components.CustomButton
 import com.example.habitapp.presentation.components.SmallSpacer
 import com.example.habitapp.presentation.components.CustomTextField
-
-
+import com.example.habitapp.presentation.screens.registerScreen.components.Register
+import com.example.habitapp.util.Util.Companion.showMessage
 
 
 @Composable
-fun RegisterScreen(vm: RegisterViewModel = viewModel(factory =
-ViewModelFactory.Factory),
+fun RegisterScreen(vm: RegisterViewModel = viewModel(factory = ViewModelFactory.Factory),
                    navigateBack: () -> Unit) {
     val context = LocalContext.current
     val keyboard = LocalSoftwareKeyboardController.current
@@ -61,7 +60,7 @@ ViewModelFactory.Factory),
                     stringResource(R.string.submit_button),
                     clickButton = {
                         keyboard?.hide()
-                        vm.signUpWithEmailAndPassword()
+                        vm.registerWithEmailAndPassword()
                     }
                 )
                 Row {
@@ -73,6 +72,18 @@ ViewModelFactory.Factory),
                     )
                 }
             }
+        }
+    )
+    Register(
+        vm = vm,
+        sendEmailVerification = {
+            vm.sendEmailVerification()
+        },
+        showVerifyEmailMessage = {
+            showMessage(context, "Confirm details via email")
+        },
+        showFailureToRegisterMessage = {
+            showMessage(context, "Unable to create sign up due to permissions")
         }
     )
 }

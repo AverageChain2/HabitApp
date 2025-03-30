@@ -2,6 +2,7 @@ package com.example.habitapp.presentation.screens.login
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
@@ -26,7 +27,8 @@ import com.example.habitapp.util.Util.Companion.showMessage
 @Composable
 fun LoginScreen(vm: LoginViewModel = viewModel(factory = ViewModelFactory.Factory),
 
-                navigateToHomeScreen: () -> Unit) {
+                navigateToHomeScreen: () -> Unit,
+navigateBack: () -> Unit){
     val context = LocalContext.current
     val message: String by vm.message.observeAsState(String())
 
@@ -81,6 +83,14 @@ fun LoginScreen(vm: LoginViewModel = viewModel(factory = ViewModelFactory.Factor
                 }
             )
             SmallSpacer()
+            Row {
+                CustomButton(
+                    stringResource(R.string.back_button),
+                    clickButton = {
+                        navigateBack()
+                    }
+                )
+            }
 
         }
     }

@@ -1,6 +1,5 @@
 package com.example.habitapp.presentation.navigation
 
-import android.content.Context
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Home
@@ -19,15 +18,12 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.habitapp.ContactApplication
 import com.example.habitapp.R
 import com.example.habitapp.presentation.screens.AddScreen
 import com.example.habitapp.presentation.screens.HomeScreen
-import com.example.habitapp.presentation.screens.login.LoginScreen
 import com.example.habitapp.presentation.screens.landingScreen.LandingScreen
 import com.example.habitapp.presentation.screens.login.LoginScreen
 import com.example.habitapp.presentation.screens.registerScreen.RegisterScreen
-import kotlin.system.exitProcess
 
 sealed class NavScreen(var icon:ImageVector, var selectedIcon: ImageVector, var route:String){
     data object Landing: NavScreen(Icons.Outlined.Home, Icons.Filled.Home, "Landing")
@@ -45,7 +41,7 @@ fun NavigationGraph(
 ) {
 
     NavHost(navController,
-        startDestination = NavScreen.Login.route) {
+        startDestination = NavScreen.Landing.route) {
 
         composable(NavScreen.Landing.route) {
             LandingScreen(
@@ -61,7 +57,8 @@ fun NavigationGraph(
         composable(NavScreen.Login.route) {
             LoginScreen(navigateToHomeScreen = {
                 navController.navigate(NavScreen.Home.route)
-            }
+
+            },navigateBack = {navController.popBackStack()}
 
             )
         }
