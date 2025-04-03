@@ -1,4 +1,4 @@
-package com.example.habitapp.presentation.screens
+package com.example.habitapp.presentation.screens.homeScreen
 
 
 import androidx.compose.foundation.layout.Column
@@ -15,39 +15,43 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.habitapp.presentation.components.DateSelector
 import com.example.habitapp.presentation.components.ProgressIndicator
-import androidx.compose.runtime.setValue
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.habitapp.presentation.components.GroupSelect
 import com.example.habitapp.presentation.components.DateSelectorViewModel
+import com.example.habitapp.presentation.screens.OverallDisplay
 
 @Composable
 fun HomeScreen(
     text: String,
-    modifier: Modifier = Modifier,
     navController: NavController,
-    dateSelectorViewModel: DateSelectorViewModel = viewModel()
+    dateSelectorViewModel: DateSelectorViewModel = viewModel(),
+
 )
 {
     val selectedDate by dateSelectorViewModel.selectedDate.observeAsState()
+    OverallDisplay (navController = navController, content = { modifier ->
+
     Column(
-        modifier = modifier.padding()
-    ) {
-        selectedDate?.let {
-            DateSelector(navController, Modifier, it, onDateChange = { newDate ->
-                dateSelectorViewModel.onDateChange(newDate)})
+            modifier = modifier.padding()
+        ) {
+            selectedDate?.let {
+                DateSelector(navController, Modifier, it, onDateChange = { newDate ->
+                    dateSelectorViewModel.onDateChange(newDate)})
+            }
+            selectedDate?.let { ProgressIndicator(modifier, it) }
+
+            GroupSelect()
+
+            Text(
+                modifier = Modifier
+                    .align(Alignment.CenterHorizontally),
+                text = text,
+                textAlign = TextAlign.Center,
+                fontSize = 20.sp,
+                fontWeight = FontWeight.Bold,
+            )
         }
-        selectedDate?.let { ProgressIndicator(modifier, it) }
-
-        GroupSelect()
-
-        Text(
-            modifier = Modifier
-                .align(Alignment.CenterHorizontally),
-            text = text,
-            textAlign = TextAlign.Center,
-            fontSize = 20.sp,
-            fontWeight = FontWeight.Bold,
-        )
-    }
+    })
 }
+
 

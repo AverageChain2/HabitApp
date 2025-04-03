@@ -1,4 +1,3 @@
-
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -49,6 +48,8 @@ dependencies {
     // Firebase
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.analytics)
+    implementation(libs.firebase.auth.ktx)
+    implementation(libs.androidx.storage)
 
     //Dagger - Hilt
     implementation(libs.hilt.android)
@@ -73,6 +74,7 @@ dependencies {
     implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.runtime.livedata)
     implementation(libs.androidx.ui.text.google.fonts)
+
 
     // Test Dependencies
     testImplementation(libs.junit)
