@@ -23,9 +23,9 @@ import com.example.habitapp.presentation.components.DateSelectorViewModel
 @Composable
 fun HomeScreen(
     text: String,
-    modifier: Modifier = Modifier,
     navController: NavController,
-    dateSelectorViewModel: DateSelectorViewModel = viewModel()
+    dateSelectorViewModel: DateSelectorViewModel = viewModel(),
+    modifier: Modifier = Modifier,
 )
 {
     val selectedDate by dateSelectorViewModel.selectedDate.observeAsState()

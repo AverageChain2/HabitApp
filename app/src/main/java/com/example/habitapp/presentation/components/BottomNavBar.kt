@@ -12,15 +12,22 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import com.example.habitapp.presentation.navigation.NavScreen
 
 @Composable
-fun BottomNavBar(navController: NavController, enabled: Boolean, modifier: Modifier) {
-    val itemsList = createListOfItems(enabled)
+private fun createListOfItems (): List<NavScreen> {
+    return listOf(
+        NavScreen.Home,
+        NavScreen.Add,
+        NavScreen.Exit
+    )
+}
 
+@Composable
+fun BottomNavBar(navController: NavController) {
     NavigationBar(
     ) {
         val navBackStackEntry by navController.currentBackStackEntryAsState()
         val currentRoute = navBackStackEntry?.destination?.route
 
-        itemsList.forEach { item ->
+        createListOfItems().forEach { item ->
             NavigationBarItem(
                 selected = currentRoute == item.route,
 
@@ -39,7 +46,8 @@ fun BottomNavBar(navController: NavController, enabled: Boolean, modifier: Modif
                 onClick = {
                     navController.navigate(item.route) {
                         navController.graph.startDestinationRoute?.let {
-                            popUpTo(it) {
+                            screenRoute ->
+                            popUpTo(screenRoute) {
                                 saveState = true
                             }
                         }
@@ -49,21 +57,5 @@ fun BottomNavBar(navController: NavController, enabled: Boolean, modifier: Modif
                 }
             )
         }
-    }
-}
-
-@Composable
-private fun createListOfItems(enabled: Boolean): List<NavScreen> {
-    return if(enabled){
-        listOf(
-            NavScreen.Home,
-            NavScreen.Add,
-            NavScreen.Exit
-        )
-    }
-    else{
-        listOf(
-            NavScreen.Exit
-        )
     }
 }
