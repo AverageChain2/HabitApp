@@ -9,7 +9,7 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun LandingScreen(
-    modifier: Modifier = Modifier.fillMaxSize(),
+    modifier: Modifier = Modifier,
             navigateToLoginScreen: () -> Unit,
 navigateToRegisterScreen: () -> Unit
 ) {

@@ -6,6 +6,7 @@ import androidx.compose.material3.darkColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
 import androidx.compose.ui.graphics.Color
+import androidx.lifecycle.viewmodel.compose.viewModel
 
 private val lightScheme = lightColorScheme(
     primary = primaryLight,
@@ -249,21 +250,21 @@ val unspecified_scheme = ColorFamily(
 
 @Composable
 fun AppTheme(
-    darkTheme: Boolean = isSystemInDarkTheme(),
-    // Dynamic color is available on Android 12+
-    content: @Composable() () -> Unit
+    darkTheme: Boolean,
+    content: @Composable () -> Unit
 ) {
-  val colorScheme = when {
+    val colorScheme = when {
+        darkTheme -> darkScheme
+        else -> lightScheme
+    }
 
-
-      darkTheme -> darkScheme
-      else -> lightScheme
-  }
-
-  MaterialTheme(
-    colorScheme = colorScheme,
-    typography = AppTypography,
-    content = content
-  )
+    MaterialTheme(
+        colorScheme = colorScheme,
+        typography = AppTypography,
+        content = content
+    )
 }
+
+
+
 

@@ -19,8 +19,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.habitapp.R
-import com.example.habitapp.presentation.screens.AddScreen
-import com.example.habitapp.presentation.screens.HomeScreen
+import com.example.habitapp.presentation.screens.addScreen.AddScreen
+import com.example.habitapp.presentation.screens.homeScreen.HomeScreen
 import com.example.habitapp.presentation.screens.landingScreen.LandingScreen
 import com.example.habitapp.presentation.screens.login.LoginScreen
 import com.example.habitapp.presentation.screens.registerScreen.RegisterScreen
@@ -36,7 +36,6 @@ sealed class NavScreen(var icon:ImageVector, var selectedIcon: ImageVector, var 
 
 @Composable
 fun NavigationGraph(
-    modifier: Modifier = Modifier.testTag("TestNavGraph"),
     navController: NavHostController = rememberNavController()
 ) {
 
@@ -71,9 +70,17 @@ fun NavigationGraph(
             HomeScreen(stringResource(R.string.home_button), navController)
         }
         composable(NavScreen.Add.route) {
-            AddScreen(stringResource(R.string.add_button))
+            AddScreen(navController)
         }
         composable(NavScreen.Exit.route) {
+            LandingScreen(
+                navigateToLoginScreen = {
+                    navController.navigate(NavScreen.Login.route)
+                } ,
+                navigateToRegisterScreen = {
+                    navController.navigate(NavScreen.Register.route)
+                }
+            )
 //            ContactApplication.getAuthRepository.signOut()
 //            exitProcess(0)
         }
