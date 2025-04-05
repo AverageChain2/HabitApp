@@ -19,12 +19,12 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.habitapp.R
-import com.example.habitapp.presentation.screens.LoginScreen
 import com.example.habitapp.presentation.screens.addScreen.AddScreen
 import com.example.habitapp.presentation.screens.homeScreen.HomeScreen
 import com.example.habitapp.presentation.screens.landingScreen.LandingScreen
 import com.example.habitapp.presentation.screens.login.LoginScreen
 import com.example.habitapp.presentation.screens.registerScreen.RegisterScreen
+
 
 sealed class NavScreen(var icon:ImageVector, var selectedIcon: ImageVector, var route:String){
     data object Landing: NavScreen(Icons.Outlined.Home, Icons.Filled.Home, "Landing")

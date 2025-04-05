@@ -53,6 +53,7 @@ dependencies {
 
     //Dagger - Hilt
     implementation(libs.hilt.android)
+    implementation(libs.androidx.media3.common.ktx)
     ksp(libs.hilt.compiler)
 
     // Room

@@ -1,6 +1,6 @@
 package com.example.habitapp.data.room
 
-import com.example.habitapp.data.room.database.User
+import com.example.habitapp.data.room.database.user.User
 
 sealed interface UserEvent {
 

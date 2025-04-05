@@ -1,4 +1,4 @@
-package com.example.habitapp.data.room.database
+package com.example.habitapp.data.room.database.user
 
 import androidx.room.Dao
 import androidx.room.Delete
@@ -17,7 +17,4 @@ interface UserDao {
 
     @Query("SELECT * FROM user")
     fun getUsers(): Flow<List<User>>
-
-    @Query("SELECT * FROM user ORDER BY firstName ASC")
-    fun getUsersOrderByFirstName(): Flow<List<User>>
 }
