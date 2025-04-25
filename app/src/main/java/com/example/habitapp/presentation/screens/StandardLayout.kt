@@ -13,6 +13,8 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Surface
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
@@ -53,7 +55,7 @@ fun OverallDisplay(
                 )
             },
             content = {
-                content(Modifier.padding(it).fillMaxHeight().fillMaxWidth()) // Pass modifier to the composable
+                content(Modifier.padding(it).fillMaxHeight().fillMaxWidth().verticalScroll(rememberScrollState()) ) // Pass modifier to the composable
             },
             modifier = modifier
         )

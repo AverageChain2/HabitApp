@@ -1,7 +1,7 @@
 package com.example.habitapp
 
-import MainViewModel
-import MainViewModelFactory
+//import MainViewModel
+//import MainViewModelFactory
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -13,12 +13,6 @@ import androidx.compose.ui.Modifier
 import androidx.lifecycle.ViewModelProvider
 import androidx.room.Room
 import com.example.habitapp.data.room.database.AppDatabase
-import com.example.habitapp.data.room.database.group.Group
-import com.example.habitapp.data.room.database.group.GroupDao
-import com.example.habitapp.data.room.database.habit.Habit
-import com.example.habitapp.data.room.database.habit.HabitDao
-import com.example.habitapp.data.room.database.user.User
-import com.example.habitapp.data.room.database.user.UserDao
 import com.example.habitapp.presentation.navigation.NavigationGraph
 import com.example.habitapp.presentation.theme.AppTheme
 import com.example.habitapp.presentation.theme.ThemeModeViewModel
@@ -28,20 +22,20 @@ import java.util.UUID
 class MainActivity : ComponentActivity() {
             override fun onCreate(savedInstanceState: Bundle?) {
                 super.onCreate(savedInstanceState)
-                applicationContext.deleteDatabase("app-database")
-
-                // Initialize Room database
-                val db = Room.databaseBuilder(
-                    applicationContext,
-                    AppDatabase::class.java, "app-database"
-                ).build()
-
-                // Set up ViewModel
-                val viewModel = ViewModelProvider(this, MainViewModelFactory(db))
-                    .get(MainViewModel::class.java)
-
-                // Perform database operations
-                viewModel.performDatabaseOperations()
+//                applicationContext.deleteDatabase("app-database")
+//
+//                // Initialize Room database
+//                val db = Room.databaseBuilder(
+//                    applicationContext,
+//                    AppDatabase::class.java, "app-database"
+//                ).build()
+//
+//                // Set up ViewModel
+//                val viewModel = ViewModelProvider(this, MainViewModelFactory(db))
+//                    .get(MainViewModel::class.java)
+//
+//                // Perform database operations
+//                viewModel.performDatabaseOperations()
 
 
 

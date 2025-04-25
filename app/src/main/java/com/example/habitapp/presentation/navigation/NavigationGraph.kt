@@ -19,7 +19,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.habitapp.R
-import com.example.habitapp.presentation.screens.addScreen.AddScreen
+import com.example.habitapp.presentation.screens.addHabitScreen.AddHabitScreen
+//import com.example.habitapp.presentation.screens.addScreen.AddScreen
 import com.example.habitapp.presentation.screens.homeScreen.HomeScreen
 import com.example.habitapp.presentation.screens.landingScreen.LandingScreen
 import com.example.habitapp.presentation.screens.login.LoginScreen
@@ -71,7 +72,10 @@ fun NavigationGraph(
             HomeScreen(stringResource(R.string.home_button), navController)
         }
         composable(NavScreen.Add.route) {
-            AddScreen(navController)
+            AddHabitScreen(navigateToHomeScreen = {
+                navController.navigate(NavScreen.Home.route)
+
+            }, navController = navController)
         }
         composable(NavScreen.Exit.route) {
             LandingScreen(

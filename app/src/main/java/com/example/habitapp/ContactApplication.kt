@@ -11,8 +11,4 @@ class ContactApplication : Application()  {
         fun getAuthRepository(): AuthRepository = authRepository
     }
 
-    override fun onCreate() {
-        super.onCreate()
-        Log.d("ContactApplication", "Application initialized successfully")
-    }
 }

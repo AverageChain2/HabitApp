@@ -32,7 +32,7 @@ navigateToRegisterScreen: () -> Unit
                         style = MaterialTheme.typography.headlineMedium
                     )
                     Text(
-                        text = "Your journey starts here",
+                        text = "Habits Made Easy",
                         style = MaterialTheme.typography.bodyMedium
                     )
                     Button(

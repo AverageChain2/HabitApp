@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.windowInsetsPadding
+import androidx.compose.foundation.text.KeyboardOptions
 
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
@@ -11,46 +12,59 @@ import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.sp
-import com.example.habitapp.data.room.UserEvent
-import com.example.habitapp.data.room.UserState
+import com.example.habitapp.data.room.HabitEvent
+import com.example.habitapp.data.room.HabitState
 
 @Composable
 fun RegisterForm(
-    state: UserState,
-    onEvent: (UserEvent) -> Unit,
+    state: HabitState,
+    onEvent: (HabitEvent) -> Unit,
     modifier: Modifier
 
 ) { Column(verticalArrangement = Arrangement.SpaceEvenly, modifier = modifier) {
     TextField(
-        value = state.firstName,
+        value = state.unit,
         onValueChange = {
-            onEvent(UserEvent.SetFirstName(it))
+            onEvent(HabitEvent.SetUnit(it))
         },
         placeholder = {
-            Text(text = "First name")
+            Text(text = "Unit")
         }
     )
     TextField(
-        value = state.surname,
+        value = state.goal,
+        keyboardOptions = KeyboardOptions(
+            keyboardType = KeyboardType.Number
+        ),
         onValueChange = {
-            onEvent(UserEvent.SetSurname(it))
+            onEvent(HabitEvent.SetGoal(it))
         },
         placeholder = {
-            Text(text = "Surname")
+            Text(text = "Goal")
         }
     )
     TextField(
-        value = state.telNo,
+        value = state.timeframe,
         onValueChange = {
-            onEvent(UserEvent.SetTelNo(it))
+            onEvent(HabitEvent.SetTimeframe(it))
         },
         placeholder = {
-            Text(text = "TelNo")
+            Text(text = "Timeframe")
+        }
+    )
+    TextField(
+        value = state.group,
+        onValueChange = {
+            onEvent(HabitEvent.SetGroup(it))
+        },
+        placeholder = {
+            Text(text = "Group")
         }
     )
     Button(onClick = {
-        onEvent(UserEvent.SaveUser)
+        onEvent(HabitEvent.SaveHabit)
     }) {
         Text(text = "Save")
     }
