@@ -50,6 +50,12 @@ dependencies {
     implementation(libs.firebase.analytics)
     implementation(libs.firebase.auth.ktx)
     implementation(libs.androidx.storage)
+    implementation(libs.firebase.database.ktx)
+    implementation(libs.firebase.auth.ktx)
+    implementation(libs.play.services.auth)
+
+    //Notification used in SignUpViewModel
+    implementation(libs.androidx.runtime.livedata.v180)
 
     //Dagger - Hilt
     implementation(libs.hilt.android)

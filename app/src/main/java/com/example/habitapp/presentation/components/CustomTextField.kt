@@ -18,7 +18,7 @@ import androidx.compose.ui.unit.sp
 @Composable
 fun CustomTextField(hintText: String,
                     text: String,
-                    isPasswordField: Boolean,
+                    isPasswordField: Boolean = false,
                     onValueChange: (String) -> Unit,
                     errorMessage: String,
                     errorPresent: Boolean){

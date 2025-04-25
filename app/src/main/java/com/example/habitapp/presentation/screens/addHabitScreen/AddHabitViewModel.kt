@@ -1,15 +1,17 @@
 package com.example.habitapp.presentation.screens.addHabitScreen
 
-import Repository
+
+import HabitRepository
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
-import com.example.habitapp.data.room.database.habit.Habit
+import com.example.habitapp.data.habit.Habit
+import com.example.habitapp.data.repository.AuthRepo
 import java.time.LocalDate
 import java.util.UUID
 
-class AddHabitViewModel(private val repo: Repository<Habit>) : ViewModel() {
+class AddHabitViewModel(private val authRepo: AuthRepo, private val habitRepo: HabitRepository) : ViewModel() {
 
     var unit by mutableStateOf("")
     fun unitIsValid(): Boolean {
@@ -35,15 +37,15 @@ class AddHabitViewModel(private val repo: Repository<Habit>) : ViewModel() {
     suspend fun addHabit() {
         if (unitIsValid() && goalIsValid() && timeframeIsValid() && groupIsValid()) {
             val newHabit = Habit(
-                id = UUID.randomUUID(),
+//                id = UUID.randomUUID(),
                 unit = unit,
                 goal = goal.toInt(),
                 progress = progress,
                 timeframe = timeframe.toInt(),
                 group = group,
-                timeStamp = LocalDate.now()
+                timestamp = LocalDate.now().toString()
             )
-            repo.insert(newHabit)
+            habitRepo.add(newHabit, authRepo.currentUser!!.uid)
             clear()
         }
     }

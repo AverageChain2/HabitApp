@@ -1,30 +1,25 @@
-package com.example.habitapp.data.repository
+import com.example.habitapp.data.habit.Habit
+import com.example.habitapp.data.habit.HabitDAO
+import com.example.habitapp.data.util.DatabaseResult
+import com.google.android.gms.tasks.Task
+import kotlinx.coroutines.flow.Flow
 
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
-import com.example.habitapp.data.model.Habit
-import java.time.LocalDate
-import java.util.UUID
-
-private const val ROOT_FOLDER = "habits"
-
-class HabitRepository {
-    private val firebase: FirebaseDatabase = FirebaseDatabase.getInstance("https://habitapp-4a07f-default-rtdb.europe-west1.firebasedatabase.app/")
-    private val database: DatabaseReference = firebase.getReference(ROOT_FOLDER)
-
-    fun saveRecord(id: UUID, unit: String, goal: Int, progress: Int, timeFrame: Int, group: String, timeStamp: LocalDate) {
-        val habit = Habit(id, unit, goal, progress, timeFrame, group, timeStamp)
-        database.child(UUID.randomUUID().toString()).setValue(habit)
+interface HabitRepo{
+    fun delete(habit: Habit, userUUID: String): Task<Void>
+    fun add(habit: Habit, userUUID: String)
+    fun edit(habit: Habit, userUUID: String)
+    suspend fun getAll(userUUID: String):
+            Flow<DatabaseResult<List<Habit?>>>
+}
+class HabitRepository(private val habitDAO: HabitDAO) : HabitRepo {
+    override fun delete(habit: Habit, userUUID: String) =
+        habitDAO.delete(habit, userUUID)
+    override fun add(habit: Habit, userUUID: String) {
+        habitDAO.insert(habit, userUUID)}
+    override fun edit(habit: Habit, userUUID: String) {
+        habitDAO.update(habit, userUUID)}
+    override suspend fun getAll(userUUID: String):
+            Flow<DatabaseResult<List<Habit?>>> {
+        return habitDAO.getHabits(userUUID)
     }
-    fun getRecord(id: String, onResult: (Habit?) -> Unit) {
-        database.child(id).get()
-            .addOnSuccessListener { snapshot ->
-                val habit = snapshot.getValue(Habit::class.java)
-                onResult(habit) // Pass the habit or null if not found
-            }
-            .addOnFailureListener {
-                onResult(null) // Handle failure by passing null
-            }
-    }
-
 }

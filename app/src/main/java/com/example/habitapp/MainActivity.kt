@@ -1,7 +1,5 @@
 package com.example.habitapp
 
-//import MainViewModel
-//import MainViewModelFactory
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -11,13 +9,9 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.ViewModelProvider
-import androidx.room.Room
-import com.example.habitapp.data.room.database.AppDatabase
 import com.example.habitapp.presentation.navigation.NavigationGraph
 import com.example.habitapp.presentation.theme.AppTheme
 import com.example.habitapp.presentation.theme.ThemeModeViewModel
-import java.time.LocalDate
-import java.util.UUID
 
 class MainActivity : ComponentActivity() {
             override fun onCreate(savedInstanceState: Bundle?) {

@@ -16,11 +16,12 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.habitapp.R
-import com.example.habitapp.data.room.database.habit.HabitDao
+import com.example.habitapp.ViewModelFactory
+import com.example.habitapp.data.habit.HabitDAO
 import com.example.habitapp.presentation.components.CustomButton
 import com.example.habitapp.presentation.components.CustomTextField
 import com.example.habitapp.presentation.screens.OverallDisplay
-import com.example.habitapp.presentation.screens.homeScreen.viewmodel.HomeScreenViewModelFactory
+//import com.example.habitapp.presentation.screens.homeScreen.viewmodel
 import kotlinx.coroutines.launch
 
 @Composable
@@ -28,7 +29,7 @@ fun AddHabitScreen(
     navigateToHomeScreen:()->Unit,
     modifier: Modifier = Modifier,
     navController: NavController,
-    vm: AddHabitViewModel = viewModel(factory = HomeScreenViewModelFactory.Factory)
+    vm: AddHabitViewModel = viewModel(factory = ViewModelFactory.Factory)
 ) {
     val keyboardController = LocalSoftwareKeyboardController.current
     val focusManager = LocalFocusManager.current
