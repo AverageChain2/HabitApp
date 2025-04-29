@@ -49,4 +49,6 @@ password</string>
 
     <!-- Button Text -->
     <string name="add_habit_button">Add Habit</string>
+    <string name="edit_habit">Edit</string>
+    <string name="update_habit">Update</string>
 </resources>

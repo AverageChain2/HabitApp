@@ -1,8 +1,9 @@
-package com.example.habitapp.presentation.screens.addHabitScreen
+package com.example.habitapp.presentation.screens.editHabitScreen
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -17,33 +18,33 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.habitapp.R
 import com.example.habitapp.ViewModelFactory
-import com.example.habitapp.data.habit.HabitDAO
+import com.example.habitapp.data.habit.Habit
 import com.example.habitapp.presentation.components.CustomButton
 import com.example.habitapp.presentation.components.CustomTextField
 import com.example.habitapp.presentation.screens.OverallDisplay
-//import com.example.habitapp.presentation.screens.homeScreen.viewmodel
 import kotlinx.coroutines.launch
 
 @Composable
-fun AddHabitScreen(
-    navigateToHomeScreen:()->Unit,
-
+fun HabitProgressScreen(
     navController: NavController,
-    vm: AddHabitViewModel = viewModel(factory = ViewModelFactory.Factory)
+    selectedHabit: Habit,
+    vm: HabitProgressScreenViewModel = viewModel(factory = ViewModelFactory.Factory),
+    navigateToHomeScreen: () -> Unit
 ) {
     val keyboardController = LocalSoftwareKeyboardController.current
     val focusManager = LocalFocusManager.current
     val coroutineScope = rememberCoroutineScope()
+    LaunchedEffect(key1 = Unit) { // Called on launch
+        vm.setSelectedHabit(selectedHabit)
+    }
 
-//    Text(text = text)
-    OverallDisplay (navController = navController, content = { modifier ->
-
+    OverallDisplay(navController = navController, content = { modifier ->
         Column(modifier = modifier.padding(16.dp)) {
 
             Spacer(modifier = Modifier.size(30.dp))
             Text(
                 modifier = Modifier.align(Alignment.CenterHorizontally),
-                text = stringResource(R.string.add_habit),
+                text = stringResource(R.string.edit_habit),
                 textAlign = TextAlign.Center,
                 fontSize = 20.sp,
                 fontWeight = FontWeight.Bold
@@ -62,7 +63,7 @@ fun AddHabitScreen(
                 CustomTextField(
                     focusManager = focusManager,
                     stringResource(R.string.habit_goal_hint),
-                    text = vm.goal.toString(),
+                    text = vm.goal,
                     onNameChange = { vm.goal = it },
                     errorMessage = stringResource(R.string.habit_goal_error),
                     vm.goalIsValid()
@@ -71,7 +72,7 @@ fun AddHabitScreen(
                 CustomTextField(
                     focusManager = focusManager,
                     stringResource(R.string.habit_timeframe_hint),
-                    text = vm.timeframe.toString(),
+                    text = vm.timeframe,
                     onNameChange = { vm.timeframe = it },
                     errorMessage = stringResource(R.string.habit_timeframe_error),
                     vm.timeframeIsValid()
@@ -87,13 +88,12 @@ fun AddHabitScreen(
                 )
 
                 CustomButton(
-                    stringResource(R.string.add_habit),
+                    stringResource(R.string.update_habit),
                     clickButton = {
                         coroutineScope.launch {
-                            vm.addHabit()
+                            vm.updateHabit()
                             keyboardController?.hide()
                             navigateToHomeScreen()
-
                         }
                     }
                 )

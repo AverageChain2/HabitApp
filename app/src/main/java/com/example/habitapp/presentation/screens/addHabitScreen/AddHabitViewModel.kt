@@ -34,18 +34,15 @@ class AddHabitViewModel(private val authRepo: AuthRepo, private val habitRepo: H
 
     var progress by mutableStateOf(0)
 
-    suspend fun addHabit() {
+    fun addHabit() {
         if (unitIsValid() && goalIsValid() && timeframeIsValid() && groupIsValid()) {
             val newHabit = Habit(
-//                id = UUID.randomUUID(),
                 unit = unit,
                 goal = goal.toInt(),
                 progress = progress,
                 timeframe = timeframe.toInt(),
-                group = group,
-                timestamp = LocalDate.now().toString()
             )
-            habitRepo.add(newHabit, authRepo.currentUser!!.uid)
+            habitRepo.add(newHabit, group, authRepo.currentUser!!.uid)
             clear()
         }
     }

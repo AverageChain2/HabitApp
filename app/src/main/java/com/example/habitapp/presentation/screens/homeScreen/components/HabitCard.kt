@@ -1,67 +1,88 @@
 package com.example.habitapp.presentation.screens.homeScreen.components
 
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.wrapContentHeight
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.ElevatedCard
-import androidx.compose.material3.Text
+import HomeScreenViewmodel
+import android.util.Log
+import androidx.compose.foundation.layout.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.CheckCircle
+import androidx.compose.material.icons.filled.Clear
+import androidx.compose.material.icons.filled.DateRange
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.example.habitapp.data.habit.Habit
+import java.time.LocalDate
 
 //import com.example.habitapp.data.room.database.habit.Habit
 
 @Composable
 fun HabitCard(
     modifier: Modifier = Modifier,
-    habit: Habit
+    habit: Habit,
+    group: String,
+    vm: HomeScreenViewmodel,
+    navigateToProgressScreen:(Habit)->Unit,
+//    habitProgressButton: (Habit) -> Unit
 ) {
     ElevatedCard(
+        onClick = {navigateToProgressScreen(habit)},
         modifier = modifier
             .fillMaxWidth()
-            .padding(12.dp)
+            .padding(16.dp)
             .wrapContentHeight(),
-//            .height(80.dp),
-        elevation = CardDefaults.cardElevation(defaultElevation = 8.dp)
+        elevation = CardDefaults.cardElevation(defaultElevation = 6.dp)
     ) {
         Column(
-            modifier = Modifier.padding(16.dp),
+            modifier = Modifier.padding(20.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(
-                text = "${habit.goal} ${habit.unit}s", // Displays goal + unit in a readable format
-                fontSize = 18.sp,
-                fontWeight = FontWeight.Bold,
-                modifier = Modifier.align(Alignment.CenterHorizontally),
+                text = "Goal: ${habit.goal} ${habit.unit}s",
+                style = MaterialTheme.typography.bodyLarge,
                 textAlign = TextAlign.Center
             )
-            Spacer(modifier = Modifier.height(8.dp)) // Adds space between texts
+            Spacer(modifier = Modifier.height(6.dp))
+
             Text(
-                text = "Progress: ${habit.progress}", // Displays goal + unit in a readable format
-                fontSize = 18.sp,
-                fontWeight = FontWeight.Bold,
-                modifier = Modifier.align(Alignment.CenterHorizontally),
+                text = "Progress: ${habit.progress}",
+                style = MaterialTheme.typography.bodyMedium,
                 textAlign = TextAlign.Center
             )
-            Spacer(modifier = Modifier.height(8.dp)) // Adds space between texts
+            Spacer(modifier = Modifier.height(6.dp))
+
             Text(
-                text = "Group: ${habit.group}", // Shows habit group
-                fontSize = 14.sp,
-                fontWeight = FontWeight.Medium,
-                modifier = Modifier.align(Alignment.CenterHorizontally),
+                text = "Group: $group",
+                style = MaterialTheme.typography.labelMedium,
                 textAlign = TextAlign.Center
             )
+            Spacer(modifier = Modifier.height(12.dp))
+
+            Log.d("HabitCard", "$habit ${habit.id}")
+
+            if (habit.progress == habit.goal) {
+
+                    IconButton(onClick = { vm.updateHabitToMaxProgress(habit) },
+                        modifier = Modifier.fillMaxWidth()) {
+                        Icon(
+                            imageVector = Icons.Filled.Clear,
+                            contentDescription = "Localized description",
+                        )
+                    }
+            } else {
+                IconButton(onClick = { vm.updateHabitToMaxProgress(habit) },
+                    modifier = Modifier.fillMaxWidth()) {
+                    Icon(
+                        imageVector = Icons.Filled.CheckCircle,
+                        contentDescription = "Localized description",
+                    )
+                }
+            }
+
+
         }
     }
 }

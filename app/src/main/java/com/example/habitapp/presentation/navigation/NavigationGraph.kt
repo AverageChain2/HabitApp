@@ -10,21 +10,22 @@ import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.Lock
 import androidx.compose.material.icons.outlined.Person
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.habitapp.R
+import com.example.habitapp.data.habit.Habit
 import com.example.habitapp.presentation.screens.addHabitScreen.AddHabitScreen
+import com.example.habitapp.presentation.screens.editHabitScreen.HabitProgressScreen
 //import com.example.habitapp.presentation.screens.addScreen.AddScreen
 import com.example.habitapp.presentation.screens.homeScreen.HomeScreen
 import com.example.habitapp.presentation.screens.landingScreen.LandingScreen
 import com.example.habitapp.presentation.screens.login.LoginScreen
 import com.example.habitapp.presentation.screens.registerScreen.RegisterScreen
+import com.google.firebase.auth.FirebaseAuth
 
 
 sealed class NavScreen(var icon:ImageVector, var selectedIcon: ImageVector, var route:String){
@@ -33,27 +34,30 @@ sealed class NavScreen(var icon:ImageVector, var selectedIcon: ImageVector, var 
     data object Register: NavScreen(Icons.Outlined.Person, Icons.Filled.Person, "Register")
     data object Home : NavScreen(Icons.Outlined.Home, Icons.Filled.Home, "Home")
     data object Add: NavScreen(Icons.Outlined.Add, Icons.Filled.Add, "Add")
+    data object Progress: NavScreen(Icons.Outlined.Add, Icons.Filled.Add, "Progress")
     data object Exit: NavScreen(Icons.Outlined.Lock, Icons.Filled.Lock, "Logout")
 }
+
 
 @Composable
 fun NavigationGraph(
     navController: NavHostController = rememberNavController()
 ) {
+    val currentUser = FirebaseAuth.getInstance().currentUser
+    val startDestination = if (currentUser != null) NavScreen.Home.route else NavScreen.Landing.route
 
-    NavHost(navController,
-        startDestination = NavScreen.Landing.route) {
+    var selectedHabit: Habit? = null
 
-        composable(NavScreen.Landing.route) {
-            LandingScreen(
-                navigateToLoginScreen = {
-                navController.navigate(NavScreen.Login.route)
-            } ,
-                    navigateToRegisterScreen = {
-                navController.navigate(NavScreen.Register.route)
-            }
-            )
+    NavHost(navController, startDestination = startDestination) {
+
+        composable(NavScreen.Login.route) {
+            LoginScreen(navigateToHomeScreen = {
+                navController.navigate(NavScreen.Home.route) {
+                    popUpTo(NavScreen.Landing.route) { inclusive = true } // Clears back stack
+                }
+            }, navigateBack = { navController.popBackStack() })
         }
+
 
         composable(NavScreen.Login.route) {
             LoginScreen(navigateToHomeScreen = {
@@ -69,7 +73,12 @@ fun NavigationGraph(
             )
         }
         composable(NavScreen.Home.route) {
-            HomeScreen(stringResource(R.string.home_button), navController)
+            HomeScreen(stringResource(R.string.home_button),
+                selectHabit = {selectedHabit = it},
+                navigateToProgressScreen = {
+                navController.navigate(NavScreen.Home.route)
+
+            }, navController)
         }
         composable(NavScreen.Add.route) {
             AddHabitScreen(navigateToHomeScreen = {
@@ -77,6 +86,20 @@ fun NavigationGraph(
 
             }, navController = navController)
         }
+        composable(NavScreen.Progress.route) {
+            HabitProgressScreen(
+                selectedHabit = selectedHabit!!,
+                navigateToHomeScreen = { if (selectedHabit == null) {
+                navController.navigate(NavScreen.Home.route)}
+
+            }, navController = navController)
+        }
+//        composable(NavScreen.Add.route) {
+//            EditHabitScreen(navigateToHomeScreen = {
+//                navController.navigate(NavScreen.Home.route)
+//
+//            }, navController = navController)
+//        }
         composable(NavScreen.Exit.route) {
             LandingScreen(
                 navigateToLoginScreen = {

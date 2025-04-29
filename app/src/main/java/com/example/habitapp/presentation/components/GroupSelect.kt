@@ -29,11 +29,12 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import java.time.LocalDate
 import kotlin.math.exp
 
 
 @Composable
-fun GroupSelect() {
+fun GroupSelect(groups: List<String>, selectedGroup: String, onGroupChange: (String) -> Unit) {
     var expanded by remember { mutableStateOf(false) }
 
     Box(modifier = Modifier.height(50.dp).fillMaxWidth().border(1.dp, MaterialTheme.colorScheme.onBackground)){
@@ -41,20 +42,16 @@ fun GroupSelect() {
             Text("Group Select Button")
             Icon(Icons.Default.MoreVert, contentDescription = "Description")
         }
-        DropdownMenu(expanded,
-            onDismissRequest = { expanded = false},
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            DropdownMenuItem(
-                text = { Text("hi") },
-                onClick = {},
-
+        DropdownMenu(expanded = expanded, onDismissRequest = { expanded = false }) {
+            groups.forEach { group ->
+                DropdownMenuItem(
+                    text = { Text(group) },
+                    onClick = {
+                        onGroupChange(group)
+                        expanded = false }
                 )
-            DropdownMenuItem(
-                text = { Text("hi2") },
-                onClick = {},
-
-                )
+            }
         }
-}
+
+    }
 }

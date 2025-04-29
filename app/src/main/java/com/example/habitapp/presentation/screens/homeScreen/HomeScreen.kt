@@ -2,23 +2,19 @@ package com.example.habitapp.presentation.screens.homeScreen
 
 
 import HomeScreenViewmodel
+import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.habitapp.ViewModelFactory
 import com.example.habitapp.data.habit.Habit
-import com.example.habitapp.data.util.DatabaseResult
-//import com.example.habitapp.data.room.database.habit.Habit
 import com.example.habitapp.presentation.components.DateSelector
-import com.example.habitapp.presentation.components.DateSelectorViewModel
 import com.example.habitapp.presentation.components.GroupSelect
 import com.example.habitapp.presentation.components.ProgressBar
 import com.example.habitapp.presentation.components.ProgressIndicator
@@ -31,31 +27,44 @@ import com.example.habitapp.util.Util.Companion.showMessage
 @Composable
 fun HomeScreen(
     text: String,
+    selectHabit: (Habit) -> Unit,
+    navigateToProgressScreen:()->Unit,
     navController: NavController,
-    dateSelectorViewModel: DateSelectorViewModel = viewModel(),
+//    dateSelectorViewModel: DateSelectorViewModel = viewModel(),
     homeScreenViewModel: HomeScreenViewmodel = viewModel(factory = ViewModelFactory.Factory)
 
 )
 {
-    val selectedDate by dateSelectorViewModel.selectedDate.observeAsState()
+    val selectedDate by homeScreenViewModel.selectedDate.collectAsState()
     val userState by homeScreenViewModel.userState.collectAsState()
+//    val userGroups by homeScreenViewModel.userGroups.collectAsState()
+    val groups by homeScreenViewModel.userGroups.collectAsState()
+    val selectedGroup by homeScreenViewModel.selectedGroup.collectAsState()
 
 
-    val context = LocalContext.current
-    val coroutineScope = rememberCoroutineScope()
+        val context = LocalContext.current
+//        val coroutineScope = rememberCoroutineScope()
+//    LaunchedEffect(key1 = Unit) { // Called on launch
+//        vm.setSelectedHabit(selectedHabit)
+//    }
 
-    OverallDisplay (navController = navController, content = { modifier ->
+
+        OverallDisplay (navController = navController, content = { modifier ->
 
     Column(
             modifier = modifier.padding()
         ) {
-            selectedDate?.let {
-                DateSelector(navController, Modifier, it, onDateChange = { newDate ->
-                    dateSelectorViewModel.onDateChange(newDate)})
-            }
-            selectedDate?.let { ProgressIndicator(modifier, it) }
+        DateSelector(navController, Modifier, selectedDate, onDateChange = { newDate ->
+            homeScreenViewModel.onDateChange(newDate)})
+        ProgressIndicator(modifier, selectedDate, homeScreenViewModel.calculateOverallProgress())
 
-            GroupSelect()
+        if (groups.isNotEmpty() && selectedGroup != null) {
+            GroupSelect(groups.filterNotNull(), selectedGroup!!) { newGroup ->
+                homeScreenViewModel.onGroupChange( newGroup)
+            }
+        }
+
+
 
         when {
             userState.isLoading -> {
@@ -63,10 +72,16 @@ fun HomeScreen(
             }
 
             userState.data.isNotEmpty() -> {
+
+
+
                 Column {
                     userState.data.forEach { habit ->
                         if (habit != null) {
-                            HabitCard(modifier = Modifier, habit = habit)
+                            Log.d("HomeScreen", "$habit ${habit.id}")
+                            selectedGroup?.let { HabitCard(modifier = Modifier, habit = habit, it,
+                                vm = homeScreenViewModel,
+                                navigateToProgressScreen) }
                         }
                     }
                 }
