@@ -17,7 +17,6 @@ class HomeScreenViewmodel(
     private val _userState = MutableStateFlow(DatabaseState<Habit>())
     val userState: StateFlow<DatabaseState<Habit>> = _userState.asStateFlow()
 
-
     private val _userGroups = MutableStateFlow<List<String?>>(emptyList())
     val userGroups: StateFlow<List<String?>> = _userGroups.asStateFlow()
 

@@ -74,11 +74,9 @@ fun NavigationGraph(
         }
         composable(NavScreen.Home.route) {
             HomeScreen(stringResource(R.string.home_button),
-                selectHabit = {selectedHabit = it},
-                navigateToProgressScreen = {
-                navController.navigate(NavScreen.Home.route)
-
-            }, navController)
+                selectHabit = {selectedHabit = it
+                    navController.navigate(NavScreen.Progress.route)    },
+                navController)
         }
         composable(NavScreen.Add.route) {
             AddHabitScreen(navigateToHomeScreen = {

@@ -24,12 +24,13 @@ fun HabitCard(
     modifier: Modifier = Modifier,
     habit: Habit,
     group: String,
-    vm: HomeScreenViewmodel,
-    navigateToProgressScreen:(Habit)->Unit,
-//    habitProgressButton: (Habit) -> Unit
+    selectHabit: (Habit) -> Unit,
+//    vm: HomeScreenViewmodel,
+    habitProgressButton: (Habit) -> Unit
 ) {
     ElevatedCard(
-        onClick = {navigateToProgressScreen(habit)},
+        onClick = {
+            selectHabit(habit) },
         modifier = modifier
             .fillMaxWidth()
             .padding(16.dp)
@@ -65,7 +66,7 @@ fun HabitCard(
 
             if (habit.progress == habit.goal) {
 
-                    IconButton(onClick = { vm.updateHabitToMaxProgress(habit) },
+                    IconButton(onClick = { habitProgressButton(habit) },
                         modifier = Modifier.fillMaxWidth()) {
                         Icon(
                             imageVector = Icons.Filled.Clear,
@@ -73,7 +74,7 @@ fun HabitCard(
                         )
                     }
             } else {
-                IconButton(onClick = { vm.updateHabitToMaxProgress(habit) },
+                IconButton(onClick = { habitProgressButton(habit) },
                     modifier = Modifier.fillMaxWidth()) {
                     Icon(
                         imageVector = Icons.Filled.CheckCircle,

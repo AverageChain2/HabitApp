@@ -31,7 +31,7 @@ import com.example.habitapp.R
 import java.time.LocalDate
 
 @Composable
-fun DateSelector(navController: NavController, modifier: Modifier,  selectedDate: LocalDate,
+fun DateSelector( modifier: Modifier,  selectedDate: LocalDate,
                  onDateChange: (LocalDate) -> Unit,) {
 
 

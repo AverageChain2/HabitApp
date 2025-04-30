@@ -28,7 +28,6 @@ import com.example.habitapp.util.Util.Companion.showMessage
 fun HomeScreen(
     text: String,
     selectHabit: (Habit) -> Unit,
-    navigateToProgressScreen:()->Unit,
     navController: NavController,
 //    dateSelectorViewModel: DateSelectorViewModel = viewModel(),
     homeScreenViewModel: HomeScreenViewmodel = viewModel(factory = ViewModelFactory.Factory)
@@ -54,7 +53,7 @@ fun HomeScreen(
     Column(
             modifier = modifier.padding()
         ) {
-        DateSelector(navController, Modifier, selectedDate, onDateChange = { newDate ->
+        DateSelector( Modifier, selectedDate, onDateChange = { newDate ->
             homeScreenViewModel.onDateChange(newDate)})
         ProgressIndicator(modifier, selectedDate, homeScreenViewModel.calculateOverallProgress())
 
@@ -80,8 +79,8 @@ fun HomeScreen(
                         if (habit != null) {
                             Log.d("HomeScreen", "$habit ${habit.id}")
                             selectedGroup?.let { HabitCard(modifier = Modifier, habit = habit, it,
-                                vm = homeScreenViewModel,
-                                navigateToProgressScreen) }
+                                selectHabit,
+                                homeScreenViewModel::updateHabitToMaxProgress) }
                         }
                     }
                 }
