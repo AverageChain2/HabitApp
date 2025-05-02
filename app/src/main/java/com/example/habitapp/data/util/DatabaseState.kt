@@ -5,3 +5,9 @@ data class DatabaseState<T>(
     val isLoading: Boolean = false,
     val errorMessage: String=String()
 )
+
+data class DatabaseStateSingle<T>(
+    val data: T? = null,
+    val isLoading: Boolean = false,
+    val errorMessage: String=String()
+)

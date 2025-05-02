@@ -8,11 +8,13 @@ import java.time.LocalDate
 interface HabitRepo{
     fun delete(habit: Habit, userUUID: String): Task<Void>
     fun add(habit: Habit, group: String, userUUID: String)
-    fun edit(habit: Habit, userUUID: String, group: String, date: String)
+    fun edit(habit: Habit, userUUID: String)
 //    suspend fun getAll(userUUID: String):
 //            Flow<DatabaseResult<List<Habit?>>>
     suspend fun getHabitsInGroupOnDate(userUUID: String, group: String, date: String):
             Flow<DatabaseResult<List<Habit?>>>
+    suspend fun getSingleHabit(userUUID: String, habit: Habit) :
+            Flow<DatabaseResult<Habit?>>
     suspend fun getAllGroupNames(userUUID: String):
             Flow<DatabaseResult<List<String?>>>
 }
@@ -22,8 +24,8 @@ class HabitRepository(private val habitDAO: HabitDAO) : HabitRepo {
     override fun add(habit: Habit, group: String, userUUID: String) {
         habitDAO.insert(habit, group, userUUID)}
 
-    override fun edit(habit: Habit, userUUID: String, group: String, date: String) {
-        habitDAO.update(habit, userUUID, group, date)}
+    override fun edit(habit: Habit, userUUID: String) {
+        habitDAO.update(habit, userUUID)}
 //    override suspend fun getAll(userUUID: String):
 //            Flow<DatabaseResult<List<Habit?>>> {
 //        return habitDAO.getHabits(userUUID)
@@ -35,6 +37,10 @@ class HabitRepository(private val habitDAO: HabitDAO) : HabitRepo {
         date: String
     ): Flow<DatabaseResult<List<Habit?>>> {
         return habitDAO.getHabitsInGroupOnDate(userUUID, group, date)
+    }
+    override suspend fun getSingleHabit(userUUID: String, habit: Habit):
+            Flow<DatabaseResult<Habit?>> {
+        return habitDAO.getSingleHabit(userUUID, habit)
     }
 
     override suspend fun getAllGroupNames(userUUID: String):

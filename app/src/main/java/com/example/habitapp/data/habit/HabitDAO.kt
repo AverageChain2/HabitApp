@@ -38,6 +38,34 @@ class HabitDAO(private val database: DatabaseReference) {
     database.child(userAuthUUID).child(group).child(date).addValueEventListener(event)
     awaitClose { close() }
     }
+
+    fun getSingleHabit(userAuthUUID: String, habit: Habit): Flow<DatabaseResult<Habit?>> = callbackFlow {
+        trySend(DatabaseResult.Loading)
+
+        val habitRef = database.child(userAuthUUID).child(habit.group.toString()).child(habit.date.toString()).child(habit.id.toString())
+        habitRef.keepSynced(true)
+
+        val event = object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val habitData = snapshot.getValue(Habit::class.java)
+                if (habitData != null) {
+                    habitData.id = habit.id
+                    habitData.date = habit.date
+                    habitData.group = habit.group
+                }
+                trySend(DatabaseResult.Success(habitData))
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                trySend(DatabaseResult.Error(Throwable(error.message)))
+            }
+        }
+
+        habitRef.addValueEventListener(event)
+        awaitClose { habitRef.removeEventListener(event) }
+    }
+
+
     fun getGroups(userAuthUUID: String): Flow<DatabaseResult<List<String>>> = callbackFlow {
         trySend(DatabaseResult.Loading)
 
@@ -71,7 +99,7 @@ class HabitDAO(private val database: DatabaseReference) {
         val group = editHabit.group
         editHabit.group = null
         val date = editHabit.date
-        editHabit.date = null// Clear so it's not saved inside the folder
+        editHabit.date = null // Clear so it's not saved inside the folder
 
         val path = "$userAuthUUID/$group/$date/$habitId"
         Log.d("HabitDAO", "Updating habit at path: $path")

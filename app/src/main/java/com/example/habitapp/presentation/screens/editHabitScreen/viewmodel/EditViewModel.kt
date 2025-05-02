@@ -1,4 +1,4 @@
-package com.example.habitapp.presentation.screens.editHabitScreen
+package com.example.habitapp.presentation.screens.editHabitScreen.viewmodel
 
 import HabitRepo
 import androidx.compose.runtime.getValue
@@ -10,6 +10,7 @@ import com.example.habitapp.data.repository.AuthRepo
 
 class EditViewModel (private val authRepo: AuthRepo,
                      private val repo: HabitRepo) : ViewModel() {
+
     private var selectedHabit : Habit? = null
     private var id by mutableStateOf(String())
     private var date by mutableStateOf(String())
@@ -39,24 +40,35 @@ class EditViewModel (private val authRepo: AuthRepo,
     }
 
     fun setSelectedHabit(habit: Habit){
-    id = habit.id.toString()
-    unit = unit
-    goal = goal
-    progress = progress
-    timeframe = timeframe
-    selectedHabit = habit
+        id = habit.id.toString()
+        unit = habit.unit
+        goal = habit.goal.toString()
+        progress = habit.progress.toString()
+        timeframe = habit.timeframe.toString()
+        group = habit.group.toString()
+        selectedHabit = habit
     }
+
 
     fun updateHabit(){
         if (unitIsValid() && goalIsValid() && timeframeIsValid() && groupIsValid()) {
+            val updatedHabit =
+                selectedHabit?.copy()
+            if (updatedHabit != null) {
 
-            selectedHabit!!.unit = unit
-            selectedHabit!!.goal = goal.toInt()
-            selectedHabit!!.progress = progress.toInt()
-            selectedHabit!!.timeframe = timeframe.toInt()
+                updatedHabit.unit = unit
+
+            updatedHabit.goal = goal.toInt()
+            updatedHabit.progress = progress.toInt()
+            updatedHabit.timeframe = timeframe.toInt()
+            updatedHabit.date = selectedHabit?.date
+            updatedHabit.group = selectedHabit?.group
+            updatedHabit.id = selectedHabit?.id
+            }
+
     repo.edit(
-        selectedHabit!!, authRepo.currentUser!!.uid,
-        group, date
+        updatedHabit!!, authRepo.currentUser!!.uid,
+
     )
     }
     }

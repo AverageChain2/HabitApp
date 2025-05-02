@@ -1,3 +1,6 @@
+package com.example.habitapp.presentation.screens.homeScreen.viewmodel
+
+import HabitRepo
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -26,7 +29,7 @@ class HomeScreenViewmodel(
     private val _selectedDate = MutableStateFlow(LocalDate.now())
     val selectedDate: StateFlow<LocalDate> = _selectedDate.asStateFlow()
 
-    var selectedHabit: Habit? = null
+    private var selectedHabit: Habit? = null
 
     init {
         authRepo.currentUser?.uid?.let { userId ->
@@ -99,13 +102,20 @@ class HomeScreenViewmodel(
     }
     fun updateHabitToMaxProgress(selectHabit: Habit){
         Log.d("HomeScreenViewModel", "Updating habit retrieved: ${selectHabit.id} ${selectedDate.value} ${selectedGroup.value}")
-        if (selectHabit!!.progress == selectHabit.goal) {
-            selectHabit!!.progress = 0
+        val updatedHabit =
+            selectHabit.copy()
+        if (updatedHabit.progress == updatedHabit.goal) {
+            updatedHabit.progress = 0
         } else {
-            selectHabit!!.progress = selectHabit.goal
+            updatedHabit.progress = updatedHabit.goal
         }
-            habitRepo.edit(selectHabit!!, authRepo.currentUser!!.uid,
-                selectedGroup.value.toString(), selectedDate.value.toString()
+        updatedHabit.group = selectedGroup.value
+
+        updatedHabit.date = selectedDate.value.toString()
+        updatedHabit.id = selectHabit.id
+
+            habitRepo.edit(
+                updatedHabit, authRepo.currentUser!!.uid
             )
 
     }

@@ -19,7 +19,8 @@ import androidx.navigation.compose.rememberNavController
 import com.example.habitapp.R
 import com.example.habitapp.data.habit.Habit
 import com.example.habitapp.presentation.screens.addHabitScreen.AddHabitScreen
-import com.example.habitapp.presentation.screens.editHabitScreen.HabitProgressScreen
+import com.example.habitapp.presentation.screens.editHabitScreen.EditHabitScreen
+import com.example.habitapp.presentation.screens.habitProgressScreen.HabitProgressScreen
 //import com.example.habitapp.presentation.screens.addScreen.AddScreen
 import com.example.habitapp.presentation.screens.homeScreen.HomeScreen
 import com.example.habitapp.presentation.screens.landingScreen.LandingScreen
@@ -35,6 +36,7 @@ sealed class NavScreen(var icon:ImageVector, var selectedIcon: ImageVector, var 
     data object Home : NavScreen(Icons.Outlined.Home, Icons.Filled.Home, "Home")
     data object Add: NavScreen(Icons.Outlined.Add, Icons.Filled.Add, "Add")
     data object Progress: NavScreen(Icons.Outlined.Add, Icons.Filled.Add, "Progress")
+    data object Edit: NavScreen(Icons.Outlined.Add, Icons.Filled.Add, "Edit")
     data object Exit: NavScreen(Icons.Outlined.Lock, Icons.Filled.Lock, "Logout")
 }
 
@@ -86,18 +88,18 @@ fun NavigationGraph(
         }
         composable(NavScreen.Progress.route) {
             HabitProgressScreen(
-                selectedHabit = selectedHabit!!,
-                navigateToHomeScreen = { if (selectedHabit == null) {
-                navController.navigate(NavScreen.Home.route)}
-
-            }, navController = navController)
+                selectedHabit2 = selectedHabit!!,
+                navigateBack = {navController.popBackStack()},
+                navigateToEditScreen = {
+                    navController.navigate(NavScreen.Edit.route)    },
+               )
         }
-//        composable(NavScreen.Add.route) {
-//            EditHabitScreen(navigateToHomeScreen = {
-//                navController.navigate(NavScreen.Home.route)
-//
-//            }, navController = navController)
-//        }
+        composable(NavScreen.Edit.route) {
+            EditHabitScreen(
+                selectedHabit = selectedHabit!!,
+                navigateBack = {navController.popBackStack()}
+            )
+        }
         composable(NavScreen.Exit.route) {
             LandingScreen(
                 navigateToLoginScreen = {

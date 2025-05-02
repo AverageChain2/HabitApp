@@ -23,10 +23,10 @@ import com.example.habitapp.presentation.theme.ThemeModeViewModel
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun OverallDisplay(
+fun StandardLayout(
     modifier: Modifier = Modifier,
     navController: NavController,
-    content: @Composable (Modifier) -> Unit // Accept a composable parameter
+    content: @Composable (Modifier) -> Unit
 ) {
     val viewModel: ThemeModeViewModel = viewModel()
 

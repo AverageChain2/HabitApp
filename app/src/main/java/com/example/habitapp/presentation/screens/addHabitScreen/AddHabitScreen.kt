@@ -17,10 +17,9 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.habitapp.R
 import com.example.habitapp.ViewModelFactory
-import com.example.habitapp.data.habit.HabitDAO
 import com.example.habitapp.presentation.components.CustomButton
 import com.example.habitapp.presentation.components.CustomTextField
-import com.example.habitapp.presentation.screens.OverallDisplay
+import com.example.habitapp.presentation.screens.StandardLayout
 //import com.example.habitapp.presentation.screens.homeScreen.viewmodel
 import kotlinx.coroutines.launch
 
@@ -36,7 +35,7 @@ fun AddHabitScreen(
     val coroutineScope = rememberCoroutineScope()
 
 //    Text(text = text)
-    OverallDisplay (navController = navController, content = { modifier ->
+    StandardLayout (navController = navController, content = { modifier ->
 
         Column(modifier = modifier.padding(16.dp)) {
 

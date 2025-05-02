@@ -1,7 +1,7 @@
 package com.example.habitapp.presentation.screens.homeScreen
 
 
-import HomeScreenViewmodel
+import com.example.habitapp.presentation.screens.homeScreen.viewmodel.HomeScreenViewmodel
 import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
@@ -18,7 +18,7 @@ import com.example.habitapp.presentation.components.DateSelector
 import com.example.habitapp.presentation.components.GroupSelect
 import com.example.habitapp.presentation.components.ProgressBar
 import com.example.habitapp.presentation.components.ProgressIndicator
-import com.example.habitapp.presentation.screens.OverallDisplay
+import com.example.habitapp.presentation.screens.StandardLayout
 import com.example.habitapp.presentation.screens.homeScreen.components.HabitCard
 import com.example.habitapp.util.Util.Companion.showMessage
 
@@ -48,7 +48,7 @@ fun HomeScreen(
 //    }
 
 
-        OverallDisplay (navController = navController, content = { modifier ->
+        StandardLayout (navController = navController, content = { modifier ->
 
     Column(
             modifier = modifier.padding()
@@ -77,6 +77,9 @@ fun HomeScreen(
                 Column {
                     userState.data.forEach { habit ->
                         if (habit != null) {
+                            habit.date = selectedDate.toString()
+                            habit.group = selectedGroup.toString()
+//                            habit.id
                             Log.d("HomeScreen", "$habit ${habit.id}")
                             selectedGroup?.let { HabitCard(modifier = Modifier, habit = habit, it,
                                 selectHabit,

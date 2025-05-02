@@ -1,5 +1,6 @@
 package com.example.habitapp.presentation.components
 
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
@@ -22,7 +23,7 @@ fun CustomTextField(focusManager: FocusManager,
                     onNameChange: (String) -> Unit,
                     errorMessage: String,
                     errorPresent: Boolean){
-    Surface(modifier = Modifier.padding(10.dp)) {
+    Surface(modifier = Modifier.fillMaxWidth().padding(10.dp)) {
         OutlinedTextField(
             value = text,
             onValueChange = onNameChange,

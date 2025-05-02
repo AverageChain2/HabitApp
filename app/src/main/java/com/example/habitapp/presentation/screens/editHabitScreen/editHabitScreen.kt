@@ -1,7 +1,19 @@
 package com.example.habitapp.presentation.screens.editHabitScreen
 
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.rememberCoroutineScope
@@ -15,31 +27,57 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.NavController
 import com.example.habitapp.R
 import com.example.habitapp.ViewModelFactory
 import com.example.habitapp.data.habit.Habit
 import com.example.habitapp.presentation.components.CustomButton
 import com.example.habitapp.presentation.components.CustomTextField
-import com.example.habitapp.presentation.screens.OverallDisplay
+import com.example.habitapp.presentation.screens.editHabitScreen.viewmodel.EditViewModel
 import kotlinx.coroutines.launch
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun EditHabitScreen(
-    navController: NavController,
     selectedHabit: Habit,
     vm: EditViewModel = viewModel(factory = ViewModelFactory.Factory),
-    navigateToHomeScreen: () -> Unit
+    modifier: Modifier = Modifier,
+    navigateBack: () -> Unit
 ) {
     val keyboardController = LocalSoftwareKeyboardController.current
     val focusManager = LocalFocusManager.current
     val coroutineScope = rememberCoroutineScope()
-    LaunchedEffect(key1 = Unit) { // Called on launch
+    LaunchedEffect(key1 = selectedHabit) {
         vm.setSelectedHabit(selectedHabit)
     }
 
-    OverallDisplay(navController = navController, content = { modifier ->
-        Column(modifier = modifier.padding(16.dp)) {
+    Scaffold(
+        modifier = modifier,
+        topBar = {
+            TopAppBar(
+
+                {
+                    IconButton(onClick = {
+//                        selectedHabit = null
+//                        navigateToHomeScreen()
+                        navigateBack()
+                    }) {
+                        Icon(
+                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                            contentDescription = "Localized description",
+                        )
+                    }
+                }
+            )
+
+        }
+
+    ) { innerPadding ->
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .fillMaxWidth()
+                .padding(innerPadding)
+        ) {
 
             Spacer(modifier = Modifier.size(30.dp))
             Text(
@@ -59,7 +97,6 @@ fun EditHabitScreen(
                     errorMessage = stringResource(R.string.habit_unit_error),
                     vm.unitIsValid()
                 )
-
                 CustomTextField(
                     focusManager = focusManager,
                     stringResource(R.string.habit_goal_hint),
@@ -68,7 +105,6 @@ fun EditHabitScreen(
                     errorMessage = stringResource(R.string.habit_goal_error),
                     vm.goalIsValid()
                 )
-
                 CustomTextField(
                     focusManager = focusManager,
                     stringResource(R.string.habit_timeframe_hint),
@@ -77,7 +113,6 @@ fun EditHabitScreen(
                     errorMessage = stringResource(R.string.habit_timeframe_error),
                     vm.timeframeIsValid()
                 )
-
                 CustomTextField(
                     focusManager = focusManager,
                     stringResource(R.string.habit_group_hint),
@@ -93,11 +128,12 @@ fun EditHabitScreen(
                         coroutineScope.launch {
                             vm.updateHabit()
                             keyboardController?.hide()
-                            navigateToHomeScreen()
+                            navigateBack()
+//                            navigateToHomeScreen()
                         }
                     }
                 )
             }
         }
-    })
+    }
 }

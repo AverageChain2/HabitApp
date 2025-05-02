@@ -37,12 +37,14 @@ password</string>
     <!-- Labels -->
     <string name="add_habit">Add Habit</string>
     <string name="habit_unit_hint">Enter Unit (e.g., minutes, reps, pages)</string>
+    <string name="habit_progress_hint">Enter Progress (number)</string>
     <string name="habit_goal_hint">Set a Goal (e.g., 10 reps, 30 minutes)</string>
     <string name="habit_timeframe_hint">Choose Timeframe (e.g., daily, weekly)</string>
     <string name="habit_group_hint">Select Group (e.g., fitness, reading)</string>
 
     <!-- Error Messages -->
     <string name="habit_unit_error">Unit cannot be empty</string>
+    <string name="habit_progress_error">Progress cannot be empty</string>
     <string name="habit_goal_error">Goal must be a positive number</string>
     <string name="habit_timeframe_error">Timeframe must be valid</string>
     <string name="habit_group_error">Group cannot be empty</string>
@@ -51,4 +53,5 @@ password</string>
     <string name="add_habit_button">Add Habit</string>
     <string name="edit_habit">Edit</string>
     <string name="update_habit">Update</string>
+    <string name="update_progress_habit">Update habit progress.</string>
 </resources>
