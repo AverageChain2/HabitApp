@@ -13,7 +13,6 @@ class EditViewModel (private val authRepo: AuthRepo,
 
     private var selectedHabit : Habit? = null
     private var id by mutableStateOf(String())
-    private var date by mutableStateOf(String())
 
     var unit by mutableStateOf(String())
     fun unitIsValid(): Boolean {

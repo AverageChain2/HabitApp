@@ -16,6 +16,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.habitapp.HabitApplication
 import com.example.habitapp.R
 import com.example.habitapp.data.habit.Habit
 import com.example.habitapp.presentation.screens.addHabitScreen.AddHabitScreen
@@ -37,7 +38,7 @@ sealed class NavScreen(var icon:ImageVector, var selectedIcon: ImageVector, var 
     data object Add: NavScreen(Icons.Outlined.Add, Icons.Filled.Add, "Add")
     data object Progress: NavScreen(Icons.Outlined.Add, Icons.Filled.Add, "Progress")
     data object Edit: NavScreen(Icons.Outlined.Add, Icons.Filled.Add, "Edit")
-    data object Exit: NavScreen(Icons.Outlined.Lock, Icons.Filled.Lock, "Logout")
+    data object Exit: NavScreen(Icons.Outlined.Lock, Icons.Filled.Lock, "Exit")
 }
 
 
@@ -46,72 +47,89 @@ fun NavigationGraph(
     navController: NavHostController = rememberNavController()
 ) {
     val currentUser = FirebaseAuth.getInstance().currentUser
-    val startDestination = if (currentUser != null) NavScreen.Home.route else NavScreen.Landing.route
-
+    val startDestination = NavScreen.Landing.route
     var selectedHabit: Habit? = null
 
     NavHost(navController, startDestination = startDestination) {
 
-        composable(NavScreen.Login.route) {
-            LoginScreen(navigateToHomeScreen = {
-                navController.navigate(NavScreen.Home.route) {
-                    popUpTo(NavScreen.Landing.route) { inclusive = true } // Clears back stack
-                }
-            }, navigateBack = { navController.popBackStack() })
-        }
-
-
-        composable(NavScreen.Login.route) {
-            LoginScreen(navigateToHomeScreen = {
-                navController.navigate(NavScreen.Home.route)
-
-            },navigateBack = {navController.popBackStack()}
-
-            )
-        }
-        composable(NavScreen.Register.route) {
-            RegisterScreen(
-                navigateBack = {navController.popBackStack()}
-            )
-        }
-        composable(NavScreen.Home.route) {
-            HomeScreen(stringResource(R.string.home_button),
-                selectHabit = {selectedHabit = it
-                    navController.navigate(NavScreen.Progress.route)    },
-                navController)
-        }
-        composable(NavScreen.Add.route) {
-            AddHabitScreen(navigateToHomeScreen = {
-                navController.navigate(NavScreen.Home.route)
-
-            }, navController = navController)
-        }
-        composable(NavScreen.Progress.route) {
-            HabitProgressScreen(
-                selectedHabit2 = selectedHabit!!,
-                navigateBack = {navController.popBackStack()},
-                navigateToEditScreen = {
-                    navController.navigate(NavScreen.Edit.route)    },
-               )
-        }
-        composable(NavScreen.Edit.route) {
-            EditHabitScreen(
-                selectedHabit = selectedHabit!!,
-                navigateBack = {navController.popBackStack()}
-            )
-        }
-        composable(NavScreen.Exit.route) {
+        composable(NavScreen.Landing.route) {
             LandingScreen(
                 navigateToLoginScreen = {
-                    navController.navigate(NavScreen.Login.route)
-                } ,
-                navigateToRegisterScreen = {
-                    navController.navigate(NavScreen.Register.route)
-                }
-            )
-//            ContactApplication.getAuthRepository.signOut()
-//            exitProcess(0)
+                    navController.navigate(NavScreen.Login.route) {
+                        popUpTo(NavScreen.Landing.route) { inclusive = true }
+                    }
+                },
+                navigateToRegisterScreen = { navController.navigate(NavScreen.Register.route)},
+
+                    navigateToHomeScreen = {
+                        navController.navigate(NavScreen.Home.route){
+                            popUpTo(NavScreen.Landing.route) { inclusive = true }
+                            launchSingleTop = true
+                        }})
         }
 
+        composable(NavScreen.Login.route) {
+            LoginScreen(
+                navigateToHomeScreen = {
+                    navController.navigate(NavScreen.Home.route) {
+                        popUpTo(NavScreen.Landing.route) { inclusive = true }
+                    }
+                },
+                navigateBack = { navController.popBackStack() }
+            )
+        }
+
+        composable(NavScreen.Register.route) {
+            RegisterScreen(
+                navigateBack = { navController.popBackStack() }
+            )
+        }
+
+        composable(NavScreen.Home.route) {
+            HomeScreen(
+                stringResource(R.string.home_button),
+                selectHabit = { selectedHabit = it
+                    navController.navigate(NavScreen.Progress.route) },
+                navigateToLandingScreen = {
+                    navController.navigate(NavScreen.Home.route)
+                },
+                navController
+            )
+        }
+
+        composable(NavScreen.Add.route) {
+            AddHabitScreen(
+                navigateToHomeScreen = {
+                    navController.navigate(NavScreen.Home.route)
+                },
+                navController = navController
+            )
+        }
+
+        composable(NavScreen.Progress.route) {
+            selectedHabit?.let {
+                HabitProgressScreen(
+                    selectedHabit2 = it,
+                    navigateBack = { navController.popBackStack() },
+                    navigateToEditScreen = {
+                        navController.navigate(NavScreen.Edit.route)
+                    }
+                )
+            } ?: navController.navigate(NavScreen.Home.route)
+        }
+
+        composable(NavScreen.Edit.route) {
+            selectedHabit?.let {
+                EditHabitScreen(
+                    selectedHabit = it,
+                    navigateBack = { navController.popBackStack() }
+                )
+            } ?: navController.navigate(NavScreen.Home.route)
+        }
+
+        composable(NavScreen.Exit.route) {
+            HabitApplication.getAuthRepository().signOut()
+            navController.navigate(NavScreen.Landing.route)
+        }
     }
 }

@@ -3,16 +3,28 @@ package com.example.habitapp.presentation.screens.landingScreen
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.google.firebase.auth.FirebaseAuth
 
 @Composable
 fun LandingScreen(
     modifier: Modifier = Modifier,
             navigateToLoginScreen: () -> Unit,
-navigateToRegisterScreen: () -> Unit
+navigateToRegisterScreen: () -> Unit,
+    navigateToHomeScreen: () -> Unit
 ) {
+
+    val currentUser = FirebaseAuth.getInstance().currentUser
+
+    LaunchedEffect(currentUser) {
+        if (currentUser != null) {
+            navigateToHomeScreen()
+        }
+    }
+
     Scaffold(
         modifier = modifier,
         content = { paddingValues ->

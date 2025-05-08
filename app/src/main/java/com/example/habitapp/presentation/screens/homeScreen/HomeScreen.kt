@@ -6,6 +6,7 @@ import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -21,6 +22,7 @@ import com.example.habitapp.presentation.components.ProgressIndicator
 import com.example.habitapp.presentation.screens.StandardLayout
 import com.example.habitapp.presentation.screens.homeScreen.components.HabitCard
 import com.example.habitapp.util.Util.Companion.showMessage
+import com.google.firebase.auth.FirebaseAuth
 
 //import com.example.habitapp.presentation.screens.homeScreen.viewmodel.HomeScreenViewModelFactory
 
@@ -28,6 +30,7 @@ import com.example.habitapp.util.Util.Companion.showMessage
 fun HomeScreen(
     text: String,
     selectHabit: (Habit) -> Unit,
+    navigateToLandingScreen: () -> Unit,
     navController: NavController,
 //    dateSelectorViewModel: DateSelectorViewModel = viewModel(),
     homeScreenViewModel: HomeScreenViewmodel = viewModel(factory = ViewModelFactory.Factory)
@@ -43,9 +46,13 @@ fun HomeScreen(
 
         val context = LocalContext.current
 //        val coroutineScope = rememberCoroutineScope()
-//    LaunchedEffect(key1 = Unit) { // Called on launch
-//        vm.setSelectedHabit(selectedHabit)
-//    }
+    val currentUser = FirebaseAuth.getInstance().currentUser
+
+    LaunchedEffect(currentUser) {
+        if (currentUser == null) {
+            navigateToLandingScreen()
+        }
+    }
 
 
         StandardLayout (navController = navController, content = { modifier ->

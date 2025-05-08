@@ -41,13 +41,13 @@ fun StandardLayout(
                     onModeChange = { viewModel.onModeChange() }
                 )
             },
-            floatingActionButtonPosition = FabPosition.End,
-            floatingActionButton = {
-                FloatingButton(
-                    "woop",
-                    clickAction = { navController.navigate(NavScreen.Add.route) }
-                )
-            },
+//            floatingActionButtonPosition = FabPosition.End,
+//            floatingActionButton = {
+//                FloatingButton(
+//                    "woop",
+//                    clickAction = { navController.navigate(NavScreen.Add.route) }
+//                )
+//            },
             bottomBar = {
                 BottomNavBar(
                     navController = navController,

@@ -5,6 +5,8 @@ data class Habit(
     var goal: Int = 1,
     var timeframe: Int = 1,
     var progress: Int = 0,
+    var daysSinceReset: Int = 1,
+    var suspended: Boolean = false
 ) {
     var id:String? =null
     var group:String? = null

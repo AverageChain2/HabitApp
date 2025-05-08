@@ -45,6 +45,7 @@ android {
 }
 
 dependencies {
+
     // Firebase
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.analytics)
@@ -83,6 +84,8 @@ dependencies {
     implementation(libs.androidx.runtime.livedata)
     implementation(libs.androidx.ui.text.google.fonts)
 
+    // Work Manager
+    implementation (libs.androidx.work.runtime)
 
     // Test Dependencies
     testImplementation(libs.junit)

@@ -1,3 +1,6 @@
+import androidx.annotation.OptIn
+import androidx.media3.common.util.Log
+import androidx.media3.common.util.UnstableApi
 import com.example.habitapp.data.habit.Habit
 import com.example.habitapp.data.habit.HabitDAO
 import com.example.habitapp.data.util.DatabaseResult
@@ -24,7 +27,9 @@ class HabitRepository(private val habitDAO: HabitDAO) : HabitRepo {
     override fun add(habit: Habit, group: String, userUUID: String) {
         habitDAO.insert(habit, group, userUUID)}
 
+    @OptIn(UnstableApi::class)
     override fun edit(habit: Habit, userUUID: String) {
+        Log.d("habitRepository", "editing habit ${habit.id}")
         habitDAO.update(habit, userUUID)}
 //    override suspend fun getAll(userUUID: String):
 //            Flow<DatabaseResult<List<Habit?>>> {
