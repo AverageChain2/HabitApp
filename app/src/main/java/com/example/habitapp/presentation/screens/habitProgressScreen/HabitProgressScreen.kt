@@ -10,6 +10,8 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material.icons.filled.PlayArrow
+import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -91,15 +93,34 @@ fun HabitProgressScreen(
                                 contentDescription = "Localized description",
                             )
                         }
-
-                        IconButton(onClick = {
-                            navigateBack()
-                        }) {
-                            Icon(
-                                imageVector = Icons.Filled.Delete,
-                                contentDescription = "Localized description",
-                            )
+                        if (selectedHabit.data?.suspended == true) {
+                            IconButton(onClick = {
+                                vm.suspendHabit()
+                            }) {
+                                Icon(
+                                    imageVector = Icons.Filled.Refresh,
+                                    contentDescription = "UnSuspend",
+                                )
+                            }
+                            IconButton(onClick = {
+                                navigateBack()
+                            }) {
+                                Icon(
+                                    imageVector = Icons.Filled.Delete,
+                                    contentDescription = "Delete",
+                                )
+                            }
+                        } else {
+                            IconButton(onClick = {
+                                vm.suspendHabit()
+                            }) {
+                                Icon(
+                                    imageVector = Icons.Filled.PlayArrow,
+                                    contentDescription = "Localized description",
+                                )
+                            }
                         }
+
 
                     }
                     }
@@ -126,6 +147,15 @@ fun HabitProgressScreen(
                         .fillMaxSize()
                         .padding(innerPadding)
                 ) {
+                    if (selectedHabit.data?.suspended == true) {
+                        Text(
+                            modifier = Modifier.align(Alignment.CenterHorizontally),
+                            text = stringResource(R.string.supended),
+                            textAlign = TextAlign.Center,
+                            fontSize = 20.sp,
+                            fontWeight = FontWeight.Bold
+                        )
+                    }
                     if (selectedHabit2.date != null) {
                         ProgressIndicator(
                             modifier,

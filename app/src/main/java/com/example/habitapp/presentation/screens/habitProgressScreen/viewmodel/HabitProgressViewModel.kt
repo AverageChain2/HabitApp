@@ -86,4 +86,20 @@ class HabitProgressScreenViewModel(
             }
         }
     }
-}
+
+    fun suspendHabit() {
+        _selectedHabit.value.data?.let { habit ->
+                    val updatedHabit =
+                        habit.copy()
+                    updatedHabit.date = _selectedHabit.value.data!!.date
+                    updatedHabit.group = _selectedHabit.value.data!!.group
+                    updatedHabit.id = _selectedHabit.value.data!!.id
+                    updatedHabit.suspended = !_selectedHabit.value.data!!.suspended
+
+                    habitRepo.edit(
+                        updatedHabit,
+                        authRepo.currentUser?.uid ?: return
+                    )
+                }
+            }
+        }

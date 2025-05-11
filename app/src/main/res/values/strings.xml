@@ -54,4 +54,5 @@ password</string>
     <string name="edit_habit">Edit</string>
     <string name="update_habit">Update</string>
     <string name="update_progress_habit">Update habit progress.</string>
+    <string name="supended">Suspended</string>
 </resources>
