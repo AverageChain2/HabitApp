@@ -59,15 +59,15 @@ dependencies {
     implementation(libs.androidx.runtime.livedata.v180)
 
     //Dagger - Hilt
-    implementation(libs.hilt.android)
-    implementation(libs.androidx.media3.common.ktx)
-    implementation(libs.androidx.junit.ktx)
-    ksp(libs.hilt.compiler)
+//    implementation(libs.hilt.android)
+//    implementation(libs.androidx.media3.common.ktx)
+//    implementation(libs.androidx.junit.ktx)
+//    ksp(libs.hilt.compiler)
 
     // Room
-    implementation(libs.androidx.room.runtime)
-    implementation(libs.androidx.room.ktx)
-    ksp(libs.androidx.room.compiler)
+//    implementation(libs.androidx.room.runtime)
+//    implementation(libs.androidx.room.ktx)
+//    ksp(libs.androidx.room.compiler)
 
     // AndroidX and Compose
     implementation(libs.androidx.core.ktx)
@@ -86,6 +86,7 @@ dependencies {
 
     // Work Manager
     implementation (libs.androidx.work.runtime)
+    implementation(libs.media3.common.ktx)
 
     // Test Dependencies
     testImplementation(libs.junit)
@@ -95,4 +96,5 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+    testImplementation(kotlin("test"))
 }
