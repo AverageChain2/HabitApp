@@ -100,7 +100,7 @@ fun NavigationGraph(
         composable(NavScreen.Add.route) {
             AddHabitScreen(
                 navigateToHomeScreen = {
-                    navController.navigate(NavScreen.Home.route)
+                    navController.popBackStack(NavScreen.Home.route, inclusive = false)
                 },
                 navController = navController
             )

@@ -46,6 +46,10 @@ fun BottomNavBar(navController: NavController) {
                 onClick = {
                     // If the item clicked is already selected, we may want to ignore it or handle it differently
                     if (currentRoute != item.route) {
+                        if (item.route == NavScreen.Home.route) {
+                            navController.popBackStack(NavScreen.Home.route, inclusive = false)
+
+                        } else {
                         navController.navigate(item.route) {
                             // Avoid adding the route multiple times in the back stack (especially for Home and Add)
                             popUpTo(navController.graph.startDestinationRoute!!) {
@@ -54,6 +58,7 @@ fun BottomNavBar(navController: NavController) {
                             launchSingleTop = true
                             restoreState = true
                         }
+                            }
                     }
                 }
             )
