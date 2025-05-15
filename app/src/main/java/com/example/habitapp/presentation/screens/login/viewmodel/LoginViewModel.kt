@@ -1,5 +1,6 @@
-package com.example.habitapp.presentation.screens.login
+package com.example.habitapp.presentation.screens.login.viewmodel
 
+import android.util.Patterns
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -12,11 +13,10 @@ import com.example.habitapp.data.repository.AuthRepo
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.launch
 
-
 class LoginViewModel(private val repo: AuthRepo) : ViewModel() {
     var email by mutableStateOf(String())
     fun emailIsValid():Boolean{
-        return email.isNotBlank() && android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()
+        return email.isNotBlank() && Patterns.EMAIL_ADDRESS.matcher(email).matches()
     }
 
     var password by mutableStateOf(String())

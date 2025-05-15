@@ -46,13 +46,13 @@ fun HomeScreen(
 
         val context = LocalContext.current
 //        val coroutineScope = rememberCoroutineScope()
-    val currentUser = FirebaseAuth.getInstance().currentUser
+//    val currentUser = FirebaseAuth.getInstance().currentUser
 
-    LaunchedEffect(currentUser) {
-        if (currentUser == null) {
-            navigateToLandingScreen()
-        }
-    }
+//    LaunchedEffect(currentUser) {
+//        if (currentUser == null) {
+//            navigateToLandingScreen()
+//        }
+//    }
 
 
         StandardLayout (navController = navController, content = { modifier ->

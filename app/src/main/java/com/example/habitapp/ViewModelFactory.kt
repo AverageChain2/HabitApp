@@ -7,8 +7,8 @@ import androidx.lifecycle.viewmodel.viewModelFactory
 import com.example.habitapp.presentation.screens.addHabitScreen.AddHabitViewModel
 import com.example.habitapp.presentation.screens.editHabitScreen.viewmodel.EditViewModel
 import com.example.habitapp.presentation.screens.habitProgressScreen.viewmodel.HabitProgressScreenViewModel
-import com.example.habitapp.presentation.screens.login.LoginViewModel
-import com.example.habitapp.presentation.screens.registerScreen.RegisterViewModel
+import com.example.habitapp.presentation.screens.login.viewmodel.LoginViewModel
+import com.example.habitapp.presentation.screens.registerScreen.viewmodel.RegisterViewModel
 
 object ViewModelFactory {
     val Factory: ViewModelProvider.Factory = viewModelFactory {

@@ -4,13 +4,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import com.example.habitapp.data.model.Response
 import com.example.habitapp.presentation.components.ProgressBar
-import com.example.habitapp.presentation.screens.registerScreen.RegisterViewModel
+import com.example.habitapp.presentation.screens.registerScreen.viewmodel.RegisterViewModel
 
 @Composable
 fun Register(vm: RegisterViewModel,
            sendEmailVerification: () -> Unit,
            showVerifyEmailMessage: () -> Unit,
-           showFailureToRegisterMessage: () -> Unit
+           showFailureToRegisterMessage: () -> Unit,
+             navigateToLogin: () -> Unit
 )  {
     when(val registerResponse = vm.registerResponse) {
         is Response.Loading, Response.Startup -> ProgressBar()
@@ -20,6 +21,7 @@ fun Register(vm: RegisterViewModel,
                 if (isUserRegistered) {
                     sendEmailVerification()
                     showVerifyEmailMessage()
+                    navigateToLogin()
                 }
             }
         }

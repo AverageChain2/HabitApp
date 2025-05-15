@@ -15,14 +15,14 @@ class DailyWorker(appContext: Context, workerParams: WorkerParameters) : Corouti
         Log.d("dailyWorker", "Running Daily worker")
 
         val habitRepo = HabitApplication.getHabitRepository()
-        val currentUser = FirebaseAuth.getInstance().currentUser?.uid
+        val currentUser = HabitApplication.getAuthRepository().currentUser
 
         if (currentUser == null) {
             Log.w("dailyWorker", "Current user is null. Skipping work.")
             return Result.success() // Or Result.failure() if needed
         }
 
-        val groupNamesResult = habitRepo.getAllGroupNames(currentUser)
+        val groupNamesResult = habitRepo.getAllGroupNames(currentUser.uid.toString())
             .filter { it !is DatabaseResult.Loading } // skip loading
             .first()
         if (groupNamesResult !is DatabaseResult.Success) {
@@ -35,7 +35,7 @@ class DailyWorker(appContext: Context, workerParams: WorkerParameters) : Corouti
 
         for (group in groupNames) {
             val habitsResult = habitRepo.getHabitsInGroupOnDate(
-                currentUser,
+                currentUser.uid.toString(),
                 group,
                 LocalDate.now().minusDays(1).toString()
             ).filter { it !is DatabaseResult.Loading }
@@ -58,7 +58,7 @@ class DailyWorker(appContext: Context, workerParams: WorkerParameters) : Corouti
                     habit.group = group
                     Log.d("dailyWorker", "Updating habit: $habit")
 
-                    habitRepo.edit(habit, currentUser)
+                    habitRepo.edit(habit, currentUser.uid.toString())
                 }
             }
         }

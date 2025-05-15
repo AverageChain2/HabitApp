@@ -1,5 +1,6 @@
 package com.example.habitapp.presentation.navigation
 
+import android.util.Log
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Home
@@ -46,26 +47,27 @@ sealed class NavScreen(var icon:ImageVector, var selectedIcon: ImageVector, var 
 fun NavigationGraph(
     navController: NavHostController = rememberNavController()
 ) {
-    val currentUser = FirebaseAuth.getInstance().currentUser
+//    val currentUser = FirebaseAuth.getInstance().currentUser
     val startDestination = NavScreen.Landing.route
     var selectedHabit: Habit? = null
 
-    NavHost(navController, startDestination = startDestination) {
+    NavHost(navController, startDestination = if (HabitApplication.getAuthRepository().currentUser != null) {NavScreen.Home.route}
+    else {NavScreen.Landing.route}) {
 
         composable(NavScreen.Landing.route) {
             LandingScreen(
                 navigateToLoginScreen = {
                     navController.navigate(NavScreen.Login.route) {
-                        popUpTo(NavScreen.Landing.route) { inclusive = true }
                     }
                 },
-                navigateToRegisterScreen = { navController.navigate(NavScreen.Register.route)},
+                navigateToRegisterScreen = { navController.navigate(NavScreen.Register.route)}
 
-                    navigateToHomeScreen = {
-                        navController.navigate(NavScreen.Home.route){
-                            popUpTo(NavScreen.Landing.route) { inclusive = true }
-                            launchSingleTop = true
-                        }})
+//                    navigateToHomeScreen = {
+//                        navController.navigate(NavScreen.Home.route){
+//                            popUpTo(NavScreen.Landing.route) { inclusive = true }
+//                            launchSingleTop = true
+//                        }}
+            )
         }
 
         composable(NavScreen.Login.route) {
@@ -81,7 +83,8 @@ fun NavigationGraph(
 
         composable(NavScreen.Register.route) {
             RegisterScreen(
-                navigateBack = { navController.popBackStack() }
+                navigateBack = { navController.popBackStack() },
+                navigateToLogin = {navController.navigate(NavScreen.Login.route)}
             )
         }
 
@@ -128,8 +131,11 @@ fun NavigationGraph(
         }
 
         composable(NavScreen.Exit.route) {
-            HabitApplication.getAuthRepository().signOut()
-            navController.navigate(NavScreen.Landing.route)
+            if (HabitApplication.getAuthRepository().currentUser != null){
+                HabitApplication.getAuthRepository().signOut()
+                navController.navigate(NavScreen.Landing.route)
+            }
+
         }
     }
 }

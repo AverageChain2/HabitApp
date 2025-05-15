@@ -1,5 +1,6 @@
-package com.example.habitapp.presentation.screens.registerScreen
+package com.example.habitapp.presentation.screens.registerScreen.viewmodel
 
+import android.util.Patterns
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -14,7 +15,7 @@ class RegisterViewModel (private val repo: AuthRepo) : ViewModel() {
 
     fun emailIsValid():Boolean{
         return email.isNotBlank() &&
-                android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()
+                Patterns.EMAIL_ADDRESS.matcher(email).matches()
     }
 
     var password by mutableStateOf(String())
@@ -25,8 +26,11 @@ class RegisterViewModel (private val repo: AuthRepo) : ViewModel() {
     var registerResponse by mutableStateOf<Response<Boolean>>(Response.Success(false))
         private set
 
-    private var sendEmailVerificationResponse by mutableStateOf<Response<Boolean>>(Response.Success(false))
-        private set
+    private var sendEmailVerificationResponse by mutableStateOf<Response<Boolean>>(
+        Response.Success(
+            false
+        )
+    )
 
     fun registerWithEmailAndPassword() = viewModelScope.launch {
         registerResponse = Response.Loading
