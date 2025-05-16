@@ -55,4 +55,8 @@ password</string>
     <string name="update_habit">Update</string>
     <string name="update_progress_habit">Update habit progress.</string>
     <string name="supended">Suspended</string>
+    <string name="login">Login</string>
+    <string name="register">Register</string>
+    <string name="LandingScreenText1">Welcome to HabitApp</string>
+    <string name="LandingScreenText2">Habits Made Easy</string>
 </resources>

@@ -6,24 +6,19 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.google.firebase.auth.FirebaseAuth
+import com.example.habitapp.R
 
 @Composable
 fun LandingScreen(
     modifier: Modifier = Modifier,
             navigateToLoginScreen: () -> Unit,
 navigateToRegisterScreen: () -> Unit,
-    navigateToHomeScreen: () -> Unit
+//    navigateToHomeScreen: () -> Unit
 ) {
-
-    val currentUser = FirebaseAuth.getInstance().currentUser
-
-    LaunchedEffect(currentUser) {
-        if (currentUser != null) {
-            navigateToHomeScreen()
-        }
-    }
+    
 
     Scaffold(
         modifier = modifier,
@@ -40,11 +35,11 @@ navigateToRegisterScreen: () -> Unit,
                     verticalArrangement = Arrangement.spacedBy(16.dp)
                 ) {
                     Text(
-                        text = "Welcome to HabitApp",
+                        text = stringResource(R.string.LandingScreenText1),
                         style = MaterialTheme.typography.headlineMedium
                     )
                     Text(
-                        text = "Habits Made Easy",
+                        text = stringResource(R.string.LandingScreenText2),
                         style = MaterialTheme.typography.bodyMedium
                     )
                     Button(
@@ -52,14 +47,14 @@ navigateToRegisterScreen: () -> Unit,
                             navigateToLoginScreen()
                         }
                     ) {
-                        Text(text = "Login")
+                        Text(stringResource(R.string.login))
                     }
                     Button(
                         onClick = {
                             navigateToRegisterScreen()
                         }
                     ) {
-                        Text(text = "Register")
+                        Text(stringResource(R.string.register))
                     }
                 }
             }

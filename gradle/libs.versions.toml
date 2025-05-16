@@ -17,6 +17,7 @@ navigationRuntimeAndroid = "2.9.0-alpha08"
 navigationCompose = "2.8.9"
 playServicesAuth = "21.3.0"
 roomCompiler = "2.6.1"
+rules = "1.6.1"
 runtimeLivedata = "1.7.8"
 runtimeLivedataVersion = "1.8.0"
 uiTextGoogleFonts = "1.7.8"
@@ -32,6 +33,7 @@ androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = 
 androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "roomCompiler" }
 androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "roomCompiler" }
 androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "roomCompiler" }
+androidx-rules = { module = "androidx.test:rules", version.ref = "rules" }
 androidx-runtime-livedata-v180 = { module = "androidx.compose.runtime:runtime-livedata", version.ref = "runtimeLivedataVersion" }
 androidx-work-runtime = { module = "androidx.work:work-runtime", version.ref = "workRuntime" }
 firebase-analytics = { module = "com.google.firebase:firebase-analytics" }

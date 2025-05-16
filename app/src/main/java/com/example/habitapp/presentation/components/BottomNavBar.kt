@@ -6,6 +6,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
@@ -22,7 +24,8 @@ private fun createListOfItems(): List<NavScreen> {
 
 @Composable
 fun BottomNavBar(navController: NavController) {
-    NavigationBar {
+    NavigationBar(modifier = Modifier.semantics { contentDescription =
+        "bottom_nav"}) {
         val navBackStackEntry by navController.currentBackStackEntryAsState()
         val currentRoute = navBackStackEntry?.destination?.route
 
@@ -32,7 +35,7 @@ fun BottomNavBar(navController: NavController) {
                 icon = {
                     Icon(
                         if (item.route == currentRoute) item.selectedIcon else item.icon,
-                        contentDescription = item.route,
+                        contentDescription = "nav" + item.route,
                         modifier = Modifier
                     )
                 },
@@ -46,6 +49,10 @@ fun BottomNavBar(navController: NavController) {
                 onClick = {
                     // If the item clicked is already selected, we may want to ignore it or handle it differently
                     if (currentRoute != item.route) {
+                        if (item.route == NavScreen.Home.route) {
+                            navController.popBackStack(NavScreen.Home.route, inclusive = false)
+
+                        } else {
                         navController.navigate(item.route) {
                             // Avoid adding the route multiple times in the back stack (especially for Home and Add)
                             popUpTo(navController.graph.startDestinationRoute!!) {
@@ -54,6 +61,7 @@ fun BottomNavBar(navController: NavController) {
                             launchSingleTop = true
                             restoreState = true
                         }
+                            }
                     }
                 }
             )

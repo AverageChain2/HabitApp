@@ -13,10 +13,7 @@
         </DropdownSelection>
         <DialogSelection />
       </SelectionState>
-      <SelectionState runConfigName="CustomButtonTest">
-        <option name="selectionMode" value="DROPDOWN" />
-      </SelectionState>
-      <SelectionState runConfigName="CustomTextFieldTest">
+      <SelectionState runConfigName="check state of landing page()">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
     </selectionStates>
