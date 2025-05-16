@@ -1,4 +1,4 @@
-package com.example.habitapp.presentation.screens.login
+package com.example.habitapp.presentation.screens.loginScreen
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf

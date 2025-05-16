@@ -1,4 +1,4 @@
-package com.example.habitapp.presentation.screens.login
+package com.example.habitapp.presentation.screens.loginScreen
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -20,7 +20,7 @@ import com.example.habitapp.ViewModelFactory
 import com.example.habitapp.presentation.components.CustomButton
 import com.example.habitapp.presentation.components.CustomTextField
 import com.example.habitapp.presentation.components.SmallSpacer
-import com.example.habitapp.presentation.screens.login.components.LogIn
+import com.example.habitapp.presentation.screens.loginScreen.components.LogIn
 import com.example.habitapp.util.Util.Companion.showMessage
 
 

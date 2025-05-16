@@ -5,8 +5,10 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.habitapp.data.habit.Habit
 import com.example.habitapp.data.repository.AuthRepo
+import kotlinx.coroutines.launch
 
 class EditViewModel (private val authRepo: AuthRepo,
                      private val repo: HabitRepo) : ViewModel() {
@@ -61,14 +63,27 @@ class EditViewModel (private val authRepo: AuthRepo,
             updatedHabit.progress = progress.toInt()
             updatedHabit.timeframe = timeframe.toInt()
             updatedHabit.date = selectedHabit?.date
+
             updatedHabit.group = selectedHabit?.group
             updatedHabit.id = selectedHabit?.id
+
+                if (group != selectedHabit?.group) {
+                    viewModelScope.launch {
+
+                            repo.batchUpdateGroup(updatedHabit, authRepo.currentUser!!.uid,
+                                group
+                            )
+
+                    }
+                }
             }
 
     repo.edit(
-        updatedHabit!!, authRepo.currentUser!!.uid,
+        updatedHabit!!, authRepo.currentUser!!.uid
 
     )
     }
     }
+
+
     }

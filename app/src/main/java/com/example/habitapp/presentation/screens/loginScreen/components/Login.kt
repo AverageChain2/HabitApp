@@ -1,10 +1,10 @@
-package com.example.habitapp.presentation.screens.login.components
+package com.example.habitapp.presentation.screens.loginScreen.components
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import com.example.habitapp.data.model.Response
 import com.example.habitapp.presentation.components.ProgressBar
-import com.example.habitapp.presentation.screens.login.LoginViewModel
+import com.example.habitapp.presentation.screens.loginScreen.LoginViewModel
 
 
 @Composable

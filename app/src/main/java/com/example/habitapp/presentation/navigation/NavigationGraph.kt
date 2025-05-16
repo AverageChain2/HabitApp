@@ -25,7 +25,7 @@ import com.example.habitapp.presentation.screens.habitProgressScreen.HabitProgre
 //import com.example.habitapp.presentation.screens.addScreen.AddScreen
 import com.example.habitapp.presentation.screens.homeScreen.HomeScreen
 import com.example.habitapp.presentation.screens.landingScreen.LandingScreen
-import com.example.habitapp.presentation.screens.login.LoginScreen
+import com.example.habitapp.presentation.screens.loginScreen.LoginScreen
 import com.example.habitapp.presentation.screens.registerScreen.RegisterScreen
 import com.google.firebase.auth.FirebaseAuth
 

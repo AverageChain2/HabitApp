@@ -33,9 +33,9 @@ class MainActivity : ComponentActivity() {
             startActivity(intent)
         }
 
-        if (!isAlarmScheduled(this)) {
+//        if (!isAlarmScheduled(this)) {
             scheduleDailyTask(this)
-        }
+//        }
 
 
         enableEdgeToEdge()

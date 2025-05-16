@@ -1,5 +1,5 @@
 [versions]
-agp = "8.8.2"
+agp = "8.10.0"
 firebaseBom = "33.11.0"
 hiltAndroid = "2.55"
 hiltAndroidGradlePlugin = "2.55"
@@ -25,6 +25,7 @@ storage = "1.5.0"
 media3CommonKtx = "1.6.0"
 junitKtx = "1.2.1"
 workRuntime = "2.10.1"
+media3CommonKtxVersion = "1.6.1"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -61,6 +62,7 @@ androidx-storage = { group = "androidx.test.services", name = "storage", version
 androidx-media3-common-ktx = { group = "androidx.media3", name = "media3-common-ktx", version.ref = "media3CommonKtx" }
 androidx-junit-ktx = { group = "androidx.test.ext", name = "junit-ktx", version.ref = "junitKtx" }
 play-services-auth = { module = "com.google.android.gms:play-services-auth", version.ref = "playServicesAuth" }
+media3-common-ktx = { group = "androidx.media3", name = "media3-common-ktx", version.ref = "media3CommonKtxVersion" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
