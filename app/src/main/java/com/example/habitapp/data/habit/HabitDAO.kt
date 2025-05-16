@@ -122,18 +122,17 @@ class HabitDAO(private val database: DatabaseReference) {
         var date = LocalDate.now()
         val originalGroup = habit.group ?: return
         val id = habit.id ?: return
-        val maxIterations = 20
+        val maxIterations = 100
         var iterations = 0
-        var habitResult: DatabaseResult<Habit?>? = null
 
         while (iterations < maxIterations) {
-            Log.d("HabitDAO", "date $date")
 
             habit.date = date.toString()
+            habit.group = originalGroup
+            habit.id = id
 
-            habitResult = null
 
-            habitResult = getSingleHabit(userAuthUUID, habit)
+             val habitResult = getSingleHabit(userAuthUUID, habit)
                 .filter { it is DatabaseResult.Success || it is DatabaseResult.Error }
                 .firstOrNull()
 
@@ -187,6 +186,28 @@ class HabitDAO(private val database: DatabaseReference) {
             }
         }.addOnFailureListener {
             Log.e("HabitDAO", "Error retrieving habit before deletion: ${it.message}")
+        }
+    }
+
+    fun deleteAllWithID(habit: Habit, userAuthUUID: String){
+        var date = LocalDate.now()
+        val originalGroup = habit.group ?: return
+        val id = habit.id ?: return
+        val maxIterations = 100
+        var iterations = 0
+
+        while (iterations < maxIterations) {
+
+            habit.date = date.toString()
+            habit.group = originalGroup
+            habit.id = id
+
+            delete(habit, userAuthUUID)
+            Log.d("HabitDAO", "Deleted habit from $originalGroup to $originalGroup on date $date")
+
+            date = date.minusDays(1)
+            iterations++
+            Log.d("HabitDAO", "date $iterations")
         }
     }
 }

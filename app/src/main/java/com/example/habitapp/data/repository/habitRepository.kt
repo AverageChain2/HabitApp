@@ -15,11 +15,11 @@ import java.time.LocalDate
 
 interface HabitRepo{
     fun delete(habit: Habit, userUUID: String)
+    fun deleteAllWithID(habit: Habit, userUUID: String)
     fun add(habit: Habit, group: String, userUUID: String)
     fun edit(habit: Habit, userUUID: String)
     suspend fun batchUpdateGroup(habit: Habit, userUUID: String, originalGroup: String)
-//    suspend fun getAll(userUUID: String):
-//            Flow<DatabaseResult<List<Habit?>>>
+
     suspend fun getHabitsInGroupOnDate(userUUID: String, group: String, date: String):
             Flow<DatabaseResult<List<Habit?>>>
     suspend fun getSingleHabit(userUUID: String, habit: Habit) :
@@ -29,6 +29,8 @@ interface HabitRepo{
 }
 class HabitRepository(private val habitDAO: HabitDAO) : HabitRepo {
     override fun delete(habit: Habit, userUUID: String) {
+        habitDAO.delete(habit, userUUID)}
+    override fun deleteAllWithID(habit: Habit, userUUID: String) {
         habitDAO.delete(habit, userUUID)}
     override fun add(habit: Habit, group: String, userUUID: String) {
         habitDAO.insert(habit, group, userUUID)}

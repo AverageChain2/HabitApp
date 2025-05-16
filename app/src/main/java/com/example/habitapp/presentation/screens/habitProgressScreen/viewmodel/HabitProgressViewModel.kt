@@ -71,7 +71,7 @@ class HabitProgressScreenViewModel(
     fun updateHabit() {
         _selectedHabit.value.data?.let { habit ->
             progress.toIntOrNull()?.let { newProgress ->
-                if (newProgress >= 0 && newProgress <= _selectedHabit.value.data!!.goal ) {
+                if (newProgress >= 0 && newProgress <= _selectedHabit.value.data!!.goal) {
                     val updatedHabit =
                         habit.copy(progress = newProgress)
                     updatedHabit.date = _selectedHabit.value.data!!.date
@@ -89,17 +89,27 @@ class HabitProgressScreenViewModel(
 
     fun suspendHabit() {
         _selectedHabit.value.data?.let { habit ->
-                    val updatedHabit =
-                        habit.copy()
-                    updatedHabit.date = _selectedHabit.value.data!!.date
-                    updatedHabit.group = _selectedHabit.value.data!!.group
-                    updatedHabit.id = _selectedHabit.value.data!!.id
-                    updatedHabit.suspended = !_selectedHabit.value.data!!.suspended
+            val updatedHabit =
+                habit.copy()
+            updatedHabit.date = _selectedHabit.value.data!!.date
+            updatedHabit.group = _selectedHabit.value.data!!.group
+            updatedHabit.id = _selectedHabit.value.data!!.id
+            updatedHabit.suspended = !_selectedHabit.value.data!!.suspended
 
-                    habitRepo.edit(
-                        updatedHabit,
-                        authRepo.currentUser?.uid ?: return
-                    )
-                }
-            }
+            habitRepo.edit(
+                updatedHabit,
+                authRepo.currentUser?.uid ?: return
+            )
         }
+    }
+
+
+    fun deleteHabit() {
+        _selectedHabit.value.data?.let { habit ->
+            habitRepo.deleteAllWithID(
+                habit,
+                authRepo.currentUser?.uid ?: return
+            )
+        }
+    }
+}

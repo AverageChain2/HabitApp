@@ -114,6 +114,9 @@ fun NavigationGraph(
                     navigateBack = { navController.popBackStack() },
                     navigateToEditScreen = {
                         navController.navigate(NavScreen.Edit.route)
+                    },
+                    navigateToHomeScreen = {
+                        navController.navigate(NavScreen.Home.route)
                     }
                 )
             } ?: navController.navigate(NavScreen.Home.route)
@@ -123,8 +126,10 @@ fun NavigationGraph(
             selectedHabit?.let {
                 EditHabitScreen(
                     selectedHabit = it,
-                    navigateBack = { navController.popBackStack() }
-                )
+                    navigateBack = { navController.popBackStack() },
+                    navigateToHomeScreen = {
+                        navController.navigate(NavScreen.Home.route)
+                    }                )
             } ?: navController.navigate(NavScreen.Home.route)
         }
 

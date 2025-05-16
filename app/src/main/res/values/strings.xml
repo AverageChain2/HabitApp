@@ -36,10 +36,10 @@ password</string>
 
     <!-- Labels -->
     <string name="add_habit">Add Habit</string>
-    <string name="habit_unit_hint">Enter Unit (e.g., minutes, reps, pages)</string>
+    <string name="habit_unit_hint">Enter Unit (e.g. book, press-up, pages)</string>
     <string name="habit_progress_hint">Enter Progress (number)</string>
-    <string name="habit_goal_hint">Set a Goal (e.g., 10 reps, 30 minutes)</string>
-    <string name="habit_timeframe_hint">Choose Timeframe (e.g., daily, weekly)</string>
+    <string name="habit_goal_hint">Set a Goal (e.g. 10, 30)</string>
+    <string name="habit_timeframe_hint">Choose Timeframe (e.g. 1, 5, 10)</string>
     <string name="habit_group_hint">Select Group (e.g., fitness, reading)</string>
 
     <!-- Error Messages -->

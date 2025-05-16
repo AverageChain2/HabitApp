@@ -53,7 +53,8 @@ fun HabitProgressScreen(
     vm: HabitProgressScreenViewModel = viewModel(factory = ViewModelFactory.Factory),
     modifier: Modifier = Modifier,
     navigateBack: () -> Unit,
-    navigateToEditScreen: () -> Unit
+    navigateToEditScreen: () -> Unit,
+    navigateToHomeScreen: () -> Unit
 ) {
     val keyboardController = LocalSoftwareKeyboardController.current
     val focusManager = LocalFocusManager.current
@@ -103,7 +104,8 @@ fun HabitProgressScreen(
                                 )
                             }
                             IconButton(onClick = {
-                                navigateBack()
+                                vm.deleteHabit()
+                                navigateToHomeScreen()
                             }) {
                                 Icon(
                                     imageVector = Icons.Filled.Delete,
@@ -205,8 +207,13 @@ fun HabitProgressScreen(
                 }
             }
 
+
+
             selectedHabit.errorMessage.isNotBlank() -> {
                 showMessage(context, selectedHabit.errorMessage)
+
+                    navigateToHomeScreen()
+
             }
         }
 

@@ -41,7 +41,8 @@ fun EditHabitScreen(
     selectedHabit: Habit,
     vm: EditViewModel = viewModel(factory = ViewModelFactory.Factory),
     modifier: Modifier = Modifier,
-    navigateBack: () -> Unit
+    navigateBack: () -> Unit,
+    navigateToHomeScreen: () -> Unit
 ) {
     val keyboardController = LocalSoftwareKeyboardController.current
     val focusManager = LocalFocusManager.current
@@ -128,8 +129,11 @@ fun EditHabitScreen(
                         coroutineScope.launch {
                             vm.updateHabit()
                             keyboardController?.hide()
-                            navigateBack()
-//                            navigateToHomeScreen()
+                            if (selectedHabit.group != vm.group) {
+                                navigateToHomeScreen()
+                            } else {
+                                navigateBack()
+                            }
                         }
                     }
                 )
