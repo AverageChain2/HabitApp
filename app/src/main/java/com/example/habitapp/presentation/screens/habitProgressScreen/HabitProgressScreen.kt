@@ -38,7 +38,7 @@ import com.example.habitapp.R
 import com.example.habitapp.ViewModelFactory
 import com.example.habitapp.data.habit.Habit
 import com.example.habitapp.presentation.components.CustomButton
-import com.example.habitapp.presentation.components.CustomTextField
+import com.example.habitapp.presentation.components.CustomTextFieldAdd
 import com.example.habitapp.presentation.components.ProgressBar
 import com.example.habitapp.presentation.components.ProgressIndicator
 import com.example.habitapp.presentation.screens.habitProgressScreen.viewmodel.HabitProgressScreenViewModel
@@ -184,13 +184,14 @@ fun HabitProgressScreen(
                     )
 
                     Column {
-                        CustomTextField(
+                        CustomTextFieldAdd(
                             focusManager = focusManager,
                             hintText = stringResource(R.string.habit_progress_hint),
                             text = vm.progress,
                             onNameChange = { vm.progress = it },
                             errorMessage = stringResource(R.string.habit_progress_error),
-                            errorPresent = !vm.progressIsValid()
+                            errorPresent = !vm.progressIsValid(),
+                            isNumeric = true
                         )
 
 

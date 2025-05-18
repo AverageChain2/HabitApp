@@ -1,17 +1,13 @@
 package com.example.habitapp.components
 
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.ui.test.hasClickAction
 import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithText
-import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performTextInput
-import com.example.habitapp.presentation.components.CustomButton
 import com.example.habitapp.presentation.components.CustomTextField
 import junit.framework.Assert.assertEquals
 import junit.framework.Assert.assertTrue
-import org.junit.Before // Changed from @BeforeClass to @Before
 import org.junit.FixMethodOrder
 import org.junit.Rule
 import org.junit.Test

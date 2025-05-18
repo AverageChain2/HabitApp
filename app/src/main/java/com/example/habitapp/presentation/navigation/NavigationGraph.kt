@@ -138,7 +138,6 @@ fun NavigationGraph(
                 HabitApplication.getAuthRepository().signOut()
                 navController.navigate(NavScreen.Landing.route)
             }
-
         }
     }
 }
