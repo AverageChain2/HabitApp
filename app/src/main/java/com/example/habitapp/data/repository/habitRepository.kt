@@ -31,7 +31,7 @@ class HabitRepository(private val habitDAO: HabitDAO) : HabitRepo {
     override fun delete(habit: Habit, userUUID: String) {
         habitDAO.delete(habit, userUUID)}
     override fun deleteAllWithID(habit: Habit, userUUID: String) {
-        habitDAO.delete(habit, userUUID)}
+        habitDAO.deleteAllWithID(habit, userUUID)}
     override fun add(habit: Habit, group: String, userUUID: String) {
         habitDAO.insert(habit, group, userUUID)}
 
