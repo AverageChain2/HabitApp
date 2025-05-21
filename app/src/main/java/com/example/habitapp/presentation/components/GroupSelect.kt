@@ -39,7 +39,7 @@ fun GroupSelect(groups: List<String>, selectedGroup: String, onGroupChange: (Str
 
     Box(modifier = Modifier.height(50.dp).fillMaxWidth().border(1.dp, MaterialTheme.colorScheme.onBackground)){
         TextButton (onClick = {expanded = true}, modifier = Modifier.fillMaxWidth()) {
-            Text("Group Select Button")
+            Text(selectedGroup)
             Icon(Icons.Default.MoreVert, contentDescription = "Description")
         }
         DropdownMenu(expanded = expanded, onDismissRequest = { expanded = false }) {
