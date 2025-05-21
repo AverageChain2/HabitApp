@@ -6,15 +6,20 @@ import com.example.habitapp.data.habit.Habit
 import com.example.habitapp.data.habit.HabitDAO
 import com.example.habitapp.data.util.DatabaseResult
 import com.google.android.gms.tasks.Task
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.launch
 import java.time.LocalDate
 
 interface HabitRepo{
-    fun delete(habit: Habit, userUUID: String): Task<Void>
+    fun delete(habit: Habit, userUUID: String)
+    fun deleteAllWithID(habit: Habit, userUUID: String)
     fun add(habit: Habit, group: String, userUUID: String)
     fun edit(habit: Habit, userUUID: String)
-//    suspend fun getAll(userUUID: String):
-//            Flow<DatabaseResult<List<Habit?>>>
+    suspend fun batchUpdateGroup(habit: Habit, userUUID: String, originalGroup: String)
+
     suspend fun getHabitsInGroupOnDate(userUUID: String, group: String, date: String):
             Flow<DatabaseResult<List<Habit?>>>
     suspend fun getSingleHabit(userUUID: String, habit: Habit) :
@@ -23,18 +28,29 @@ interface HabitRepo{
             Flow<DatabaseResult<List<String?>>>
 }
 class HabitRepository(private val habitDAO: HabitDAO) : HabitRepo {
-    override fun delete(habit: Habit, userUUID: String) =
-        habitDAO.delete(habit, userUUID)
+    override fun delete(habit: Habit, userUUID: String) {
+        habitDAO.delete(habit, userUUID)}
+    override fun deleteAllWithID(habit: Habit, userUUID: String) {
+        habitDAO.deleteAllWithID(habit, userUUID)}
     override fun add(habit: Habit, group: String, userUUID: String) {
         habitDAO.insert(habit, group, userUUID)}
 
     override fun edit(habit: Habit, userUUID: String) {
         Log.d("habitRepository", "editing habit ${habit.id}")
-        habitDAO.update(habit, userUUID)}
-//    override suspend fun getAll(userUUID: String):
-//            Flow<DatabaseResult<List<Habit?>>> {
-//        return habitDAO.getHabits(userUUID)
-//    }
+        habitDAO.update(habit, userUUID)
+    }
+
+    override suspend fun batchUpdateGroup(habit: Habit, userUUID: String, originalGroup: String) {
+        Log.d("HabitRepository", "Editing habit ${habit.id}")
+
+        // Run update asynchronously on the IO dispatcher
+
+            habitDAO.batchUpdateGroup(habit, userUUID, originalGroup)
+
+    }
+
+
+
 
     override suspend fun getHabitsInGroupOnDate(
         userUUID: String,

@@ -31,7 +31,7 @@ import com.example.habitapp.R
 import com.example.habitapp.ViewModelFactory
 import com.example.habitapp.data.habit.Habit
 import com.example.habitapp.presentation.components.CustomButton
-import com.example.habitapp.presentation.components.CustomTextField
+import com.example.habitapp.presentation.components.CustomTextFieldAdd
 import com.example.habitapp.presentation.screens.editHabitScreen.viewmodel.EditViewModel
 import kotlinx.coroutines.launch
 
@@ -41,7 +41,8 @@ fun EditHabitScreen(
     selectedHabit: Habit,
     vm: EditViewModel = viewModel(factory = ViewModelFactory.Factory),
     modifier: Modifier = Modifier,
-    navigateBack: () -> Unit
+    navigateBack: () -> Unit,
+    navigateToHomeScreen: () -> Unit
 ) {
     val keyboardController = LocalSoftwareKeyboardController.current
     val focusManager = LocalFocusManager.current
@@ -89,7 +90,7 @@ fun EditHabitScreen(
             )
 
             Column {
-                CustomTextField(
+                CustomTextFieldAdd(
                     focusManager = focusManager,
                     stringResource(R.string.habit_unit_hint),
                     text = vm.unit,
@@ -97,23 +98,25 @@ fun EditHabitScreen(
                     errorMessage = stringResource(R.string.habit_unit_error),
                     vm.unitIsValid()
                 )
-                CustomTextField(
+                CustomTextFieldAdd(
                     focusManager = focusManager,
                     stringResource(R.string.habit_goal_hint),
                     text = vm.goal,
                     onNameChange = { vm.goal = it },
                     errorMessage = stringResource(R.string.habit_goal_error),
-                    vm.goalIsValid()
+                    vm.goalIsValid(),
+                    isNumeric = true
                 )
-                CustomTextField(
+                CustomTextFieldAdd(
                     focusManager = focusManager,
                     stringResource(R.string.habit_timeframe_hint),
                     text = vm.timeframe,
                     onNameChange = { vm.timeframe = it },
                     errorMessage = stringResource(R.string.habit_timeframe_error),
-                    vm.timeframeIsValid()
+                    vm.timeframeIsValid(),
+                    isNumeric = true
                 )
-                CustomTextField(
+                CustomTextFieldAdd(
                     focusManager = focusManager,
                     stringResource(R.string.habit_group_hint),
                     text = vm.group,
@@ -128,8 +131,11 @@ fun EditHabitScreen(
                         coroutineScope.launch {
                             vm.updateHabit()
                             keyboardController?.hide()
-                            navigateBack()
-//                            navigateToHomeScreen()
+                            if (selectedHabit.group != vm.group) {
+                                navigateToHomeScreen()
+                            } else {
+                                navigateBack()
+                            }
                         }
                     }
                 )

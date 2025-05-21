@@ -18,7 +18,7 @@ import androidx.navigation.NavController
 import com.example.habitapp.R
 import com.example.habitapp.ViewModelFactory
 import com.example.habitapp.presentation.components.CustomButton
-import com.example.habitapp.presentation.components.CustomTextField
+import com.example.habitapp.presentation.components.CustomTextFieldAdd
 import com.example.habitapp.presentation.screens.StandardLayout
 //import com.example.habitapp.presentation.screens.homeScreen.viewmodel
 import kotlinx.coroutines.launch
@@ -34,7 +34,7 @@ fun AddHabitScreen(
     val focusManager = LocalFocusManager.current
     val coroutineScope = rememberCoroutineScope()
 
-//    Text(text = text)
+
     StandardLayout (navController = navController, content = { modifier ->
 
         Column(modifier = modifier.padding(16.dp)) {
@@ -49,7 +49,7 @@ fun AddHabitScreen(
             )
 
             Column {
-                CustomTextField(
+                CustomTextFieldAdd(
                     focusManager = focusManager,
                     stringResource(R.string.habit_unit_hint),
                     text = vm.unit,
@@ -58,25 +58,27 @@ fun AddHabitScreen(
                     vm.unitIsValid()
                 )
 
-                CustomTextField(
+                CustomTextFieldAdd(
                     focusManager = focusManager,
                     stringResource(R.string.habit_goal_hint),
                     text = vm.goal.toString(),
                     onNameChange = { vm.goal = it },
                     errorMessage = stringResource(R.string.habit_goal_error),
-                    vm.goalIsValid()
+                    vm.goalIsValid(),
+                    isNumeric = true
                 )
 
-                CustomTextField(
+                CustomTextFieldAdd(
                     focusManager = focusManager,
                     stringResource(R.string.habit_timeframe_hint),
                     text = vm.timeframe.toString(),
                     onNameChange = { vm.timeframe = it },
                     errorMessage = stringResource(R.string.habit_timeframe_error),
-                    vm.timeframeIsValid()
+                    vm.timeframeIsValid(),
+                    isNumeric = true
                 )
 
-                CustomTextField(
+                CustomTextFieldAdd(
                     focusManager = focusManager,
                     stringResource(R.string.habit_group_hint),
                     text = vm.group,

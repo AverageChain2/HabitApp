@@ -1,6 +1,5 @@
 package com.example.habitapp.presentation.navigation
 
-import android.util.Log
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Home
@@ -26,9 +25,8 @@ import com.example.habitapp.presentation.screens.habitProgressScreen.HabitProgre
 //import com.example.habitapp.presentation.screens.addScreen.AddScreen
 import com.example.habitapp.presentation.screens.homeScreen.HomeScreen
 import com.example.habitapp.presentation.screens.landingScreen.LandingScreen
-import com.example.habitapp.presentation.screens.login.LoginScreen
+import com.example.habitapp.presentation.screens.loginScreen.LoginScreen
 import com.example.habitapp.presentation.screens.registerScreen.RegisterScreen
-import com.google.firebase.auth.FirebaseAuth
 
 
 sealed class NavScreen(var icon:ImageVector, var selectedIcon: ImageVector, var route:String){
@@ -116,6 +114,9 @@ fun NavigationGraph(
                     navigateBack = { navController.popBackStack() },
                     navigateToEditScreen = {
                         navController.navigate(NavScreen.Edit.route)
+                    },
+                    navigateToHomeScreen = {
+                        navController.navigate(NavScreen.Home.route)
                     }
                 )
             } ?: navController.navigate(NavScreen.Home.route)
@@ -125,8 +126,10 @@ fun NavigationGraph(
             selectedHabit?.let {
                 EditHabitScreen(
                     selectedHabit = it,
-                    navigateBack = { navController.popBackStack() }
-                )
+                    navigateBack = { navController.popBackStack() },
+                    navigateToHomeScreen = {
+                        navController.navigate(NavScreen.Home.route)
+                    }                )
             } ?: navController.navigate(NavScreen.Home.route)
         }
 
@@ -135,7 +138,6 @@ fun NavigationGraph(
                 HabitApplication.getAuthRepository().signOut()
                 navController.navigate(NavScreen.Landing.route)
             }
-
         }
     }
 }

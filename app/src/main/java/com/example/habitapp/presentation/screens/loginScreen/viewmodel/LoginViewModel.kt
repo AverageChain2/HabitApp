@@ -1,4 +1,4 @@
-package com.example.habitapp.presentation.screens.login.viewmodel
+package com.example.habitapp.presentation.screens.loginScreen.viewmodel
 
 import android.util.Patterns
 import androidx.compose.runtime.getValue

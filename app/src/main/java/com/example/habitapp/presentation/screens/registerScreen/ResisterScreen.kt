@@ -32,7 +32,6 @@ fun RegisterScreen(vm: RegisterViewModel = viewModel(factory = ViewModelFactory.
     val keyboard = LocalSoftwareKeyboardController.current
     Scaffold(
         content = { padding ->
-            Text(text = "Enter details to sign up")
             Column(
                 modifier = Modifier
                     .fillMaxSize()

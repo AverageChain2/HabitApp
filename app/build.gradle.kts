@@ -86,6 +86,7 @@ dependencies {
 
     // Work Manager
     implementation (libs.androidx.work.runtime)
+    implementation(libs.androidx.rules)
 //    implementation(libs.media3.common.ktx)
 
     // Test Dependencies
