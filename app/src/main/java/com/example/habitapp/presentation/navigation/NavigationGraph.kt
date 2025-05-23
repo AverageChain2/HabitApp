@@ -45,12 +45,12 @@ sealed class NavScreen(var icon:ImageVector, var selectedIcon: ImageVector, var 
 fun NavigationGraph(
     navController: NavHostController = rememberNavController()
 ) {
-//    val currentUser = FirebaseAuth.getInstance().currentUser
-    val startDestination = NavScreen.Landing.route
     var selectedHabit: Habit? = null
 
-    NavHost(navController, startDestination = if (HabitApplication.getAuthRepository().currentUser != null) {NavScreen.Home.route}
-    else {NavScreen.Landing.route}) {
+    NavHost(navController, startDestination =
+        if (HabitApplication.getAuthRepository().currentUser != null && HabitApplication.isRunningTest == false) {NavScreen.Home.route}
+    else {NavScreen.Landing.route})
+    {
 
         composable(NavScreen.Landing.route) {
             LandingScreen(

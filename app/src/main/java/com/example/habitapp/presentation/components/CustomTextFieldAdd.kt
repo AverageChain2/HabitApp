@@ -12,6 +12,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.focus.FocusManager
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
@@ -45,6 +47,7 @@ fun CustomTextFieldAdd(
             label = {
                 Text(hintText)
             },
+            modifier = Modifier.semantics { contentDescription = hintText },
             keyboardOptions = KeyboardOptions(
                 imeAction = ImeAction.Next,
                 keyboardType = if (isNumeric) KeyboardType.Number else KeyboardType.Text
@@ -56,7 +59,7 @@ fun CustomTextFieldAdd(
             )
         )
         Text(
-            modifier = Modifier.padding(10.dp),
+            modifier = Modifier.padding(10.dp).semantics { contentDescription = text },
             text = if (errorPresent) "" else errorMessage,
             fontSize = 14.sp,
             color = Color.Red

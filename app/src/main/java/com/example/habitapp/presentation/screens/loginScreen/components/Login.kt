@@ -2,6 +2,7 @@ package com.example.habitapp.presentation.screens.loginScreen.components
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import com.example.habitapp.HabitApplication
 import com.example.habitapp.data.model.Response
 import com.example.habitapp.presentation.components.ProgressBar
 import com.example.habitapp.presentation.screens.loginScreen.viewmodel.LoginViewModel
@@ -17,7 +18,8 @@ fun LogIn(
         is Response.Startup -> Unit //Do nothing
         is Response.Loading -> ProgressBar()
         is Response.Success -> {
-            if(vm.isEmailVerified) {
+            if(HabitApplication.isRunningTest ||
+                  vm.isEmailVerified) {
                 LaunchedEffect(key1 = Unit) {
                     navigateToHomeScreen()
                 }

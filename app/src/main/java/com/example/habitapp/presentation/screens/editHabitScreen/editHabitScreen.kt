@@ -64,7 +64,7 @@ fun EditHabitScreen(
                     }) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                            contentDescription = "Localized description",
+                            contentDescription = stringResource(R.string.back_button),
                         )
                     }
                 }

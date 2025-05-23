@@ -32,10 +32,11 @@ fun BottomNavBar(navController: NavController) {
         createListOfItems().forEach { item ->
             NavigationBarItem(
                 selected = currentRoute == item.route,
-                icon = {
+                modifier = Modifier.semantics { contentDescription = "nav" + item.route },
+                        icon = {
                     Icon(
                         if (item.route == currentRoute) item.selectedIcon else item.icon,
-                        contentDescription = "nav" + item.route,
+                        contentDescription = "nav" + item.route + "_icon",
                         modifier = Modifier
                     )
                 },

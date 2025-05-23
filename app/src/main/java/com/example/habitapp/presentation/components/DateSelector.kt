@@ -23,6 +23,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -36,11 +38,13 @@ fun DateSelector( modifier: Modifier,  selectedDate: LocalDate,
 
 
     Box(modifier = Modifier.fillMaxWidth()
-        .height(42.dp)) {
+        .height(42.dp).semantics { contentDescription =
+            "date_selector"}) {
         Row {
             Box(modifier = Modifier.weight(1f).fillMaxHeight()) {
                 IconButton(
-                    modifier = Modifier.clip(CircleShape),
+                    modifier = Modifier.clip(CircleShape).semantics { contentDescription =
+                        "date_selector_left"},
                     onClick = { onDateChange(selectedDate.minusDays(1))}) {
                     Icon(
                         imageVector = Icons.AutoMirrored.Filled.KeyboardArrowLeft,
@@ -58,14 +62,17 @@ fun DateSelector( modifier: Modifier,  selectedDate: LocalDate,
             }
             Box(modifier = Modifier.weight(1f).fillMaxHeight() ) {
                 Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {
-                    IconButton(onClick = { onDateChange(LocalDate.now())}) {
-                        Icon(
-                            imageVector = Icons.Filled.DateRange,
-                            contentDescription = "Localized description",
-                        )
-                    }
+
                     if (selectedDate != LocalDate.now()) {
-                        IconButton(onClick = { onDateChange(selectedDate.plusDays(1)) }) {
+                        IconButton(onClick = { onDateChange(LocalDate.now())}, modifier.semantics { contentDescription =
+                            "date_selector_now"}) {
+                            Icon(
+                                imageVector = Icons.Filled.DateRange,
+                                contentDescription = "Localized description",
+                            )
+                        }
+                        IconButton(onClick = { onDateChange(selectedDate.plusDays(1)) }, modifier.semantics { contentDescription =
+                            "date_selector_right"}) {
                             Icon(
                                 imageVector = Icons.AutoMirrored.Filled.KeyboardArrowRight,
                                 contentDescription = "Localized description"

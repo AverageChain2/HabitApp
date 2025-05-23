@@ -1,9 +1,7 @@
 [versions]
-agp = "8.9.3"
+agp = "8.10.0"
 firebaseBom = "33.14.0"
-hiltAndroid = "2.55"
 hiltAndroidGradlePlugin = "2.55"
-hiltCompiler = "2.55"
 kotlin = "2.1.10"
 coreKtx = "1.16.0"
 junit = "4.13.2"
@@ -16,31 +14,20 @@ firebaseDatabaseKtx = "21.0.0"
 navigationRuntimeAndroid = "2.9.0"
 navigationCompose = "2.9.0"
 playServicesAuth = "21.3.0"
-roomCompiler = "2.7.1"
 rules = "1.6.1"
 runtimeLivedata = "1.8.2"
-runtimeLivedataVersion = "1.8.2"
 uiTextGoogleFonts = "1.8.2"
 firebaseAuthKtx = "23.2.1"
 storage = "1.5.0"
-media3CommonKtx = "1.7.1"
 junitKtx = "1.2.1"
 workRuntime = "2.10.1"
-media3CommonKtxVersion = "1.6.1"
-
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
-androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "roomCompiler" }
-androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "roomCompiler" }
-androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "roomCompiler" }
 androidx-rules = { module = "androidx.test:rules", version.ref = "rules" }
-androidx-runtime-livedata-v180 = { module = "androidx.compose.runtime:runtime-livedata", version.ref = "runtimeLivedataVersion" }
 androidx-work-runtime = { module = "androidx.work:work-runtime", version.ref = "workRuntime" }
 firebase-analytics = { module = "com.google.firebase:firebase-analytics" }
 firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebaseBom" }
-hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hiltAndroid" }
 hilt-android-gradle-plugin = { module = "com.google.dagger:hilt-android-gradle-plugin", version.ref = "hiltAndroidGradlePlugin" }
-hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "hiltCompiler" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
@@ -61,10 +48,8 @@ androidx-runtime-livedata = { group = "androidx.compose.runtime", name = "runtim
 androidx-ui-text-google-fonts = { group = "androidx.compose.ui", name = "ui-text-google-fonts", version.ref = "uiTextGoogleFonts" }
 firebase-auth-ktx = { group = "com.google.firebase", name = "firebase-auth-ktx", version.ref = "firebaseAuthKtx" }
 androidx-storage = { group = "androidx.test.services", name = "storage", version.ref = "storage" }
-androidx-media3-common-ktx = { group = "androidx.media3", name = "media3-common-ktx", version.ref = "media3CommonKtx" }
 androidx-junit-ktx = { group = "androidx.test.ext", name = "junit-ktx", version.ref = "junitKtx" }
 play-services-auth = { module = "com.google.android.gms:play-services-auth", version.ref = "playServicesAuth" }
-media3-common-ktx = { group = "androidx.media3", name = "media3-common-ktx", version.ref = "media3CommonKtxVersion" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

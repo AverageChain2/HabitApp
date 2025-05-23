@@ -11,44 +11,15 @@ import org.junit.FixMethodOrder
 import org.junit.Rule
 import org.junit.runners.MethodSorters
 import com.example.habitapp.R
+import com.example.habitapp.util.ScreenTest
 import org.junit.Test
 
 @FixMethodOrder( MethodSorters.DEFAULT)
-class RegisterPageTest {
-  
+class RegisterScreenTest : ScreenTest(){
 
-        //Valid user details
-        val VALID_EMAIL = "newuser@email.com"
-        val VALID_PASSWORD = "password"
-
-//  Invalid user details
-        val INVALID_EMIAL = "newuser@email"
-        val INVALID_PASSWORD = "pass"
-
-
-        @get:Rule
-        var rule = createAndroidComposeRule<MainActivity>()
-        lateinit var registerButton : SemanticsMatcher
-        lateinit var emailAddressTextField : SemanticsMatcher
-        lateinit var passwordTextField : SemanticsMatcher
-        lateinit var submitButton : SemanticsMatcher
-        lateinit var backButton : SemanticsMatcher
-        //Nav bar items
-        val bottomNavBar = hasContentDescription("bottom_nav")
         @Before
-        open fun setUp() {
-            val BUTTON_POSTFIX = " button"
-
-            registerButton = hasText(rule.activity.getString(R.string.register_button))
-            submitButton = hasText(rule.activity.getString(R.string.submit_button))
-
-            backButton = hasText(rule.activity.getString(R.string.back_button))
-
-            emailAddressTextField =
-                hasContentDescription(rule.activity.getString(R.string.email))
-
-            passwordTextField =
-                hasContentDescription(rule.activity.getString(R.string.password))
+        override fun setUp() {
+            super.setUp()
         }
         @Test
         fun `check default state of the register screen`() {

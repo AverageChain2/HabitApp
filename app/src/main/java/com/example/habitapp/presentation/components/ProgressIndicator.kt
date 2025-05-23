@@ -14,6 +14,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.StrokeCap
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import java.time.LocalDate
@@ -25,7 +27,8 @@ fun ProgressIndicator(modifier: Modifier, selectedDate: LocalDate, overallProgre
             progress = { overallProgress },
             modifier = Modifier
                 .size(200.dp)
-                .padding(5.dp),
+                .padding(5.dp).semantics { contentDescription =
+                "progress_indicator"},
             color = MaterialTheme.colorScheme.onTertiaryContainer,
             strokeWidth = 10.dp,
             trackColor = if (selectedDate == LocalDate.now()) MaterialTheme.colorScheme.tertiaryContainer else MaterialTheme.colorScheme.error,

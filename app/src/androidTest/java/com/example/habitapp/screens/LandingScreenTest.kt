@@ -11,25 +11,15 @@ import org.junit.FixMethodOrder
 import org.junit.Rule
 import org.junit.runners.MethodSorters
 import com.example.habitapp.R
+import com.example.habitapp.util.ScreenTest
 import org.junit.Test
 
 
 @FixMethodOrder(MethodSorters.DEFAULT)
-class LandingScreenTest {
-    @get:Rule
-    var rule = createAndroidComposeRule<MainActivity>()
-
-    private lateinit var loginButton : SemanticsMatcher
-    private lateinit var registerButton : SemanticsMatcher
-
+class LandingScreenTest : ScreenTest() {
     @Before
-    fun setUp() {
-        loginButton =
-            hasText(rule.activity.getString(R.string.login)) and hasClickAction()
-
-        registerButton =
-            hasText(rule.activity.getString(R.string.register)) and hasClickAction()
-
+    override fun setUp() {
+        super.setUp()
     }
 
     @Test

@@ -56,7 +56,7 @@ dependencies {
     implementation(libs.play.services.auth)
 
     //Notification used in SignUpViewModel
-    implementation(libs.androidx.runtime.livedata.v180)
+    implementation(libs.androidx.runtime.livedata)
 
     //Dagger - Hilt
 //    implementation(libs.hilt.android)

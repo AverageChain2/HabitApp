@@ -50,13 +50,17 @@ password</string>
     <string name="habit_group_error">Group cannot be empty</string>
 
     <!-- Button Text -->
-    <string name="add_habit_button">Add Habit</string>
     <string name="edit_habit">Edit</string>
     <string name="update_habit">Update</string>
     <string name="update_progress_habit">Update habit progress.</string>
-    <string name="supended">Suspended</string>
+    <string name="suspended">Suspended</string>
     <string name="login">Login</string>
     <string name="register">Register</string>
     <string name="LandingScreenText1">Welcome to HabitApp</string>
     <string name="LandingScreenText2">Habits Made Easy</string>
+    <string name="habits_null">No habits found, add a habit to view them here.</string>
+    <string name="unsupend">UnSuspend</string>
+    <string name="suspend">Suspend</string>
+    <string name="delete">Delete</string>
+    <string name="Edit">Edit</string>
 </resources>

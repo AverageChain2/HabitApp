@@ -34,7 +34,7 @@ class MainActivity : ComponentActivity() {
             startActivity(intent)
         }
 
-        if (!isAlarmScheduled(this)) {
+        if (!isAlarmScheduled(this) || !HabitApplication.isRunningTest) {
             Log.e("MainActivity", "Alarm is not scheduled")
             scheduleDailyTask(this)
         } else {

@@ -10,6 +10,8 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.example.habitapp.data.habit.Habit
@@ -31,7 +33,7 @@ fun HabitCard(
         modifier = modifier
             .fillMaxWidth()
             .padding(16.dp)
-            .wrapContentHeight(),
+            .wrapContentHeight().semantics{contentDescription = "Habit + ${habit.unit} + ${habit.goal} + ${habit.timeframe} + ${habit.group}"},
         elevation = CardDefaults.cardElevation(defaultElevation = 6.dp)
     ) {
         Column(
@@ -39,10 +41,14 @@ fun HabitCard(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(
-                text = "Goal: ${habit.goal} ${habit.unit}s",
+                text = "Goal: ${habit.goal} " +
+                        (if (habit.goal < 2) habit.unit
+                        else if (habit.unit.endsWith("s")) habit.unit
+                        else habit.unit + "s"),
                 style = MaterialTheme.typography.bodyLarge,
                 textAlign = TextAlign.Center
             )
+
             Spacer(modifier = Modifier.height(6.dp))
 
             Text(

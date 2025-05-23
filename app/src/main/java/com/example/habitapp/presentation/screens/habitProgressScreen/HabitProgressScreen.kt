@@ -29,6 +29,8 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -82,7 +84,7 @@ fun HabitProgressScreen(
                         }) {
                             Icon(
                                 imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                                contentDescription = "Localized description",
+                                contentDescription = "BackArrow",
                             )
                         }
 
@@ -91,16 +93,17 @@ fun HabitProgressScreen(
                         }) {
                             Icon(
                                 imageVector = Icons.Filled.Edit,
-                                contentDescription = "Localized description",
+                                contentDescription = stringResource(R.string.Edit),
                             )
                         }
                         if (selectedHabit.data?.suspended == true) {
                             IconButton(onClick = {
                                 vm.suspendHabit()
-                            }) {
+                            }
+                                ) {
                                 Icon(
                                     imageVector = Icons.Filled.Refresh,
-                                    contentDescription = "UnSuspend",
+                                    contentDescription = stringResource(R.string.unsupend)
                                 )
                             }
                             IconButton(onClick = {
@@ -109,7 +112,7 @@ fun HabitProgressScreen(
                             }) {
                                 Icon(
                                     imageVector = Icons.Filled.Delete,
-                                    contentDescription = "Delete",
+                                    contentDescription = stringResource(R.string.delete),
                                 )
                             }
                         } else {
@@ -118,7 +121,7 @@ fun HabitProgressScreen(
                             }) {
                                 Icon(
                                     imageVector = Icons.Filled.PlayArrow,
-                                    contentDescription = "Localized description",
+                                    contentDescription = stringResource(R.string.suspend),
                                 )
                             }
                         }
@@ -152,7 +155,7 @@ fun HabitProgressScreen(
                     if (selectedHabit.data?.suspended == true) {
                         Text(
                             modifier = Modifier.align(Alignment.CenterHorizontally),
-                            text = stringResource(R.string.supended),
+                            text = stringResource(R.string.suspended),
                             textAlign = TextAlign.Center,
                             fontSize = 20.sp,
                             fontWeight = FontWeight.Bold
@@ -177,7 +180,14 @@ fun HabitProgressScreen(
                     )
                     Text(
                         modifier = Modifier.align(Alignment.CenterHorizontally),
-                        text = "${selectedHabit.data!!.goal} ${selectedHabit.data!!.unit}s in ${selectedHabit.data!!.timeframe} days.",
+                        text = "${selectedHabit.data!!.goal} "  +
+                                (if (selectedHabit.data!!.goal < 2) selectedHabit.data!!.unit
+                                else if (selectedHabit.data!!.unit.endsWith("s")) selectedHabit.data!!.unit
+                                else selectedHabit.data!!.unit + "s")
+                                        + " in " + "${selectedHabit.data!!.timeframe} " +
+                                (if (selectedHabit.data!!.goal < 2) "day"
+                                        else "days"),
+
                         textAlign = TextAlign.Center,
                         fontSize = 20.sp,
                         fontWeight = FontWeight.Bold

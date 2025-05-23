@@ -5,14 +5,18 @@ import com.example.habitapp.presentation.screens.homeScreen.viewmodel.HomeScreen
 import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import com.example.habitapp.R
 import com.example.habitapp.ViewModelFactory
 import com.example.habitapp.data.habit.Habit
 import com.example.habitapp.presentation.components.DateSelector
@@ -39,20 +43,11 @@ fun HomeScreen(
 {
     val selectedDate by homeScreenViewModel.selectedDate.collectAsState()
     val userState by homeScreenViewModel.userState.collectAsState()
-//    val userGroups by homeScreenViewModel.userGroups.collectAsState()
     val groups by homeScreenViewModel.userGroups.collectAsState()
     val selectedGroup by homeScreenViewModel.selectedGroup.collectAsState()
 
 
         val context = LocalContext.current
-//        val coroutineScope = rememberCoroutineScope()
-//    val currentUser = FirebaseAuth.getInstance().currentUser
-
-//    LaunchedEffect(currentUser) {
-//        if (currentUser == null) {
-//            navigateToLandingScreen()
-//        }
-//    }
 
 
         StandardLayout (navController = navController, content = { modifier ->
@@ -68,6 +63,11 @@ fun HomeScreen(
             GroupSelect(groups.filterNotNull(), selectedGroup!!) { newGroup ->
                 homeScreenViewModel.onGroupChange( newGroup)
             }
+        }else {
+            Text(
+                text = stringResource(R.string.habits_null),
+                style = MaterialTheme.typography.headlineMedium
+            )
         }
 
 
@@ -86,12 +86,12 @@ fun HomeScreen(
                         if (habit != null) {
                             habit.date = selectedDate.toString()
                             habit.group = selectedGroup.toString()
-//                            habit.id
                             Log.d("HomeScreen", "$habit ${habit.id}")
                             selectedGroup?.let { HabitCard(modifier = Modifier, habit = habit, it,
                                 selectHabit,
                                 homeScreenViewModel::updateHabitToMaxProgress) }
                         }
+
                     }
                 }
             }
