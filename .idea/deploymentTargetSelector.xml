@@ -13,19 +13,19 @@
         </DropdownSelection>
         <DialogSelection />
       </SelectionState>
-      <SelectionState runConfigName="HabitProgressScreenTest">
+      <SelectionState runConfigName="EditScreenTest">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
-      <SelectionState runConfigName="CustomButtonTest">
+      <SelectionState runConfigName="test edit invalid unit functionality()">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
-      <SelectionState runConfigName="check state of progress screen()">
+      <SelectionState runConfigName="test edit functionality()">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
-      <SelectionState runConfigName="test suspend functionality()">
+      <SelectionState runConfigName="test add functionality()">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
-      <SelectionState runConfigName="check state of edit page()">
+      <SelectionState runConfigName="check state of progress screen for today()">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
     </selectionStates>

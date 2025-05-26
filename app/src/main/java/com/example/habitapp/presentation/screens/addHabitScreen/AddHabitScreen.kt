@@ -1,11 +1,16 @@
 package com.example.habitapp.presentation.screens.addHabitScreen
 
-import androidx.compose.foundation.layout.*
+//import com.example.habitapp.presentation.screens.homeScreen.viewmodel
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
@@ -20,7 +25,7 @@ import com.example.habitapp.ViewModelFactory
 import com.example.habitapp.presentation.components.CustomButton
 import com.example.habitapp.presentation.components.CustomTextFieldHabit
 import com.example.habitapp.presentation.screens.StandardLayout
-//import com.example.habitapp.presentation.screens.homeScreen.viewmodel
+import com.example.habitapp.util.Util.Companion.showMessage
 import kotlinx.coroutines.launch
 
 @Composable
@@ -33,6 +38,8 @@ fun AddHabitScreen(
     val keyboardController = LocalSoftwareKeyboardController.current
     val focusManager = LocalFocusManager.current
     val coroutineScope = rememberCoroutineScope()
+    val context = LocalContext.current
+
 
 
     StandardLayout (navController = navController, content = { modifier ->
@@ -91,9 +98,14 @@ fun AddHabitScreen(
                     stringResource(R.string.add_button),
                     clickButton = {
                         coroutineScope.launch {
-                            vm.addHabit()
-                            keyboardController?.hide()
-                            navigateToHomeScreen()
+                            val habitAddedSuccessfully = vm.addHabit()
+                            if (habitAddedSuccessfully) {
+                                keyboardController?.hide()
+
+                                navigateToHomeScreen()
+                            } else {
+                                showMessage(context, "Failed to add habit")
+                            }
 
                         }
 

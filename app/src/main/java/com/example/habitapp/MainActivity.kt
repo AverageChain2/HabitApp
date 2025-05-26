@@ -17,8 +17,6 @@ import com.example.habitapp.presentation.navigation.NavigationGraph
 import com.example.habitapp.presentation.theme.AppTheme
 import com.example.habitapp.presentation.theme.ThemeModeViewModel
 import com.example.habitapp.util.dailyCopy.isAlarmScheduled
-import com.google.firebase.Firebase
-import com.google.firebase.database.database
 import scheduleDailyTask
 
 class MainActivity : ComponentActivity() {
@@ -44,7 +42,7 @@ class MainActivity : ComponentActivity() {
 
         enableEdgeToEdge()
 
-        val themeModeViewModel = ViewModelProvider(this).get(ThemeModeViewModel::class.java)
+        ViewModelProvider(this).get(ThemeModeViewModel::class.java)
 
         setContent {
             AppTheme(darkTheme = true) {

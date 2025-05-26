@@ -17,5 +17,4 @@ import org.junit.runners.Suite
 //    AddScreenTest::class,
 //    EditScreenTest::class
 )
-class TestSuite {
-}
+class TestSuite

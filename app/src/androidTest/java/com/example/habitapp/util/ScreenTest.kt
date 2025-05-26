@@ -42,6 +42,7 @@ open abstract class ScreenTest {
     lateinit var unSuspendButton: SemanticsMatcher
     lateinit var deleteButton: SemanticsMatcher
     lateinit var editButton: SemanticsMatcher
+    lateinit var backArrowButton : SemanticsMatcher
 
     //Nav bar items
     lateinit var bottomNavBar : SemanticsMatcher
@@ -80,10 +81,10 @@ open abstract class ScreenTest {
     val EDIT_GROUP = "test_edit"
 
     //Invalid Habit
-    val INVALID_UNIT = "test"
+    val INVALID_UNIT = "a".repeat(51)
     val INVALID_GOAL = "0"
     val INVALID_TIMEFRAME = "0"
-    val INVALID_GROUP = "test"
+    val INVALID_GROUP = "b".repeat(51)
 
 
 
@@ -125,6 +126,7 @@ open fun setUp() {
     unSuspendButton = hasContentDescription(rule.activity.getString(R.string.unsupend))
     deleteButton = hasContentDescription(rule.activity.getString(R.string.delete))
     editButton = hasContentDescription(rule.activity.getString(R.string.Edit))
+    backArrowButton = hasContentDescription(rule.activity.getString(R.string.back_button))
 
     //Nav bar items
     bottomNavBar = hasContentDescription("bottom_nav")
@@ -148,7 +150,7 @@ open fun setUp() {
 
 }
 
-    fun `login`(){
+    fun login(){
         rule.onNode(loginButton).performClick()
         rule.onNode(emailAddressTextField).performTextInput(VALID_EMAIL)
 //must be a valid email or firebase will put up an error via toast
@@ -157,13 +159,13 @@ open fun setUp() {
         Thread.sleep(1000)
         rule.onNode(bottomNavBar).assertExists()
     }
-    fun `navBar`(){
+    fun navBar(){
         rule.onNode(bottomNavBar).assertExists()
         rule.onNode(homeNavButton).assertExists()
         rule.onNode(addNavButton).assertExists()
         rule.onNode(exitNavButton).assertExists()
     }
-    fun `inputHabit`(unit: String, goal: String, timeframe: String, group: String){
+    fun inputHabit(unit: String, goal: String, timeframe: String, group: String){
         rule.onNode(unitTextField).performTextInput(unit)
         rule.onNode(goalTextField).performTextInput(goal)
         rule.onNode(timeframeTextField).performTextInput(timeframe)
@@ -171,10 +173,10 @@ open fun setUp() {
         rule.onNode(addHabitButton).performClick()
 
     }
-    fun `habitCard`(unit: String, goal: String, timeframe: String, group: String): SemanticsMatcher {
+    fun habitCard(unit: String, goal: String, timeframe: String, group: String): SemanticsMatcher {
         return hasContentDescription("Habit + $unit + $goal + $timeframe + $group")
     }
-    fun `progressText`(unit: String, goal: String, timeframe: String, group: String): SemanticsMatcher {
+    fun progressText(unit: String, goal: String, timeframe: String, group: String): SemanticsMatcher {
         return hasText("${goal} "  +
                 (if (goal.toInt() < 2) unit
                 else if (unit.endsWith("s")) unit

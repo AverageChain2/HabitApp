@@ -18,40 +18,43 @@ class EditViewModel (private val authRepo: AuthRepo,
 
     var unit by mutableStateOf(String())
     fun unitIsValid(): Boolean {
-        return unit.isNotBlank()
+        return unit.isNotBlank() && unit.length <= 50
     }
 
     var goal by mutableStateOf(String())
     fun goalIsValid(): Boolean {
-        return goal.isNotBlank() && goal.toIntOrNull()?.let { it > 0 } ?: false
+        val goalInt = goal.toIntOrNull()
+        return goalInt != null && goalInt > 0
     }
 
     var timeframe by mutableStateOf(String())
     fun timeframeIsValid(): Boolean {
-        return timeframe.isNotBlank() && timeframe.toIntOrNull()?.let { it > 0 } ?: false    }
+        val timeframeInt = timeframe.toIntOrNull()
+        return timeframeInt != null && timeframeInt > 0
+    }
 
     var group by mutableStateOf(String())
     fun groupIsValid(): Boolean {
-        return group.isNotBlank()
+        return group.isNotBlank() && group.length <= 50
     }
 
-    var progress by mutableStateOf(String())
-    fun progressIsValid(): Boolean {
-        return progress.isNotBlank()
-    }
+//    var progress by mutableStateOf(String())
+//    fun progressIsValid(): Boolean {
+//        val progressInt = progress.toIntOrNull()
+//        return progressInt != null && progressInt >= 0
+//    }
 
     fun setSelectedHabit(habit: Habit){
         id = habit.id.toString()
         unit = habit.unit
         goal = habit.goal.toString()
-        progress = habit.progress.toString()
         timeframe = habit.timeframe.toString()
         group = habit.group.toString()
         selectedHabit = habit
     }
 
 
-    fun updateHabit(){
+    fun updateHabit(): Boolean {
         if (unitIsValid() && goalIsValid() && timeframeIsValid() && groupIsValid()) {
             val updatedHabit =
                 selectedHabit?.copy()
@@ -60,7 +63,6 @@ class EditViewModel (private val authRepo: AuthRepo,
                 updatedHabit.unit = unit
 
             updatedHabit.goal = goal.toInt()
-            updatedHabit.progress = progress.toInt()
             updatedHabit.timeframe = timeframe.toInt()
             updatedHabit.date = selectedHabit?.date
 
@@ -82,6 +84,9 @@ class EditViewModel (private val authRepo: AuthRepo,
         updatedHabit!!, authRepo.currentUser!!.uid
 
     )
+            return true
+    } else {
+        return false
     }
     }
 

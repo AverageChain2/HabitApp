@@ -28,7 +28,8 @@ class HabitProgressScreenViewModel(
 
     var progress by mutableStateOf(String())
     fun progressIsValid(): Boolean {
-        return progress.isNotBlank()
+        val progressInt = progress.toIntOrNull()
+        return progressInt != null && progressInt >= 0
     }
 
     fun calculateProgress(): Float {

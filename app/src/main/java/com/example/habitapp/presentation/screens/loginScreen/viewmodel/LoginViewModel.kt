@@ -27,7 +27,7 @@ class LoginViewModel(private val repo: AuthRepo) : ViewModel() {
     private var _message = MutableLiveData(String())
     var message: LiveData<String> = _message
 
-    val isEmailVerified get() = repo.currentUser?.isEmailVerified ?: false
+    val isEmailVerified get() = repo.currentUser?.isEmailVerified == true
 
     var signInResponse by mutableStateOf<Response<Boolean>>(Response.Startup)
         private set

@@ -82,7 +82,7 @@ fun HabitProgressScreen(
                         }) {
                             Icon(
                                 imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                                contentDescription = "BackArrow",
+                                contentDescription = stringResource(R.string.back_button),
                             )
                         }
 

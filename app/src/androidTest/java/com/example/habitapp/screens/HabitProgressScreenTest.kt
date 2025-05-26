@@ -1,23 +1,17 @@
 package com.example.habitapp.screens
 
-import androidx.compose.ui.test.SemanticsMatcher
-import androidx.compose.ui.test.hasClickAction
-import androidx.compose.ui.test.hasContentDescription
 import androidx.compose.ui.test.hasText
-import androidx.compose.ui.test.junit4.createAndroidComposeRule
+import androidx.compose.ui.test.onFirst
 import androidx.compose.ui.test.performClick
-import com.example.habitapp.MainActivity
-import org.junit.Before
-import org.junit.FixMethodOrder
-import org.junit.Rule
-import org.junit.runners.MethodSorters
 import com.example.habitapp.R
 import com.example.habitapp.util.ScreenTest
+import org.junit.Before
+import org.junit.FixMethodOrder
 import org.junit.Test
-import java.time.LocalDate
+import org.junit.runners.MethodSorters
 
 
-@FixMethodOrder(MethodSorters.DEFAULT)
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 class HabitProgressScreenTest : ScreenTest() {
     @Before
     override fun setUp() {
@@ -29,7 +23,8 @@ class HabitProgressScreenTest : ScreenTest() {
     @Test
     fun `check state of progress screen for today`() {
         login()
-        rule.onNode(habitCard(VALID_UNIT, VALID_GOAL, VALID_TIMEFRAME, VALID_GROUP)).performClick()
+        rule.onAllNodes(habitCard(VALID_UNIT, VALID_GOAL, VALID_TIMEFRAME, VALID_GROUP)).onFirst().performClick()
+
         rule.onNode(suspendButton).assertExists()
         rule.onNode(editButton).assertExists()
         rule.onNode(unSuspendButton).assertDoesNotExist()
@@ -43,6 +38,7 @@ class HabitProgressScreenTest : ScreenTest() {
 
         rule.onNode(progressTextField).assertExists()
         rule.onNode(updateButton).assertExists()
+        rule.onNode(backArrowButton).assertExists()
 
 
     }
@@ -51,7 +47,8 @@ class HabitProgressScreenTest : ScreenTest() {
     fun `check state of progress screen for yesterday`() {
         login()
         rule.onNode(dateSelectorLeft).performClick()
-        rule.onNode(habitCard(VALID_UNIT, VALID_GOAL, VALID_TIMEFRAME, VALID_GROUP)).performClick()
+        rule.onAllNodes(habitCard(VALID_UNIT, VALID_GOAL, VALID_TIMEFRAME, VALID_GROUP)).onFirst().performClick()
+
         rule.onNode(suspendButton).assertDoesNotExist()
         rule.onNode(editButton).assertExists()
         rule.onNode(unSuspendButton).assertDoesNotExist()
@@ -72,7 +69,8 @@ class HabitProgressScreenTest : ScreenTest() {
     @Test
     fun `test suspend functionality`() {
         login()
-        rule.onNode(habitCard(VALID_UNIT, VALID_GOAL, VALID_TIMEFRAME, VALID_GROUP)).performClick()
+        rule.onAllNodes(habitCard(VALID_UNIT, VALID_GOAL, VALID_TIMEFRAME, VALID_GROUP)).onFirst().performClick()
+
 
         rule.onNode(unSuspendButton).assertDoesNotExist()
         // Suspend habit
@@ -89,9 +87,27 @@ class HabitProgressScreenTest : ScreenTest() {
         rule.onNode(suspended).assertDoesNotExist()
 
     }
+    @Test
+    fun `test delete functionality`() {
+        login()
+        rule.onAllNodes(habitCard(VALID_UNIT, VALID_GOAL, VALID_TIMEFRAME, VALID_GROUP)).onFirst().performClick()
+
+        // Suspend habit
+        rule.onNode(suspendButton).performClick()
+        val pageTitle =
+            hasText(rule.activity.getString(R.string.update_progress_habit))
+        rule.onNode(pageTitle).assertExists()
+
+        rule.onNode(suspended).assertExists()
+        rule.onNode(deleteButton).assertExists()
+
+        // Delete habit
+        rule.onNode(deleteButton).performClick()
+        rule.onNode(dateSelector).assertExists()
+        rule.onNode(habitCard(VALID_UNIT, VALID_GOAL, VALID_TIMEFRAME, VALID_GROUP)).assertDoesNotExist()
 
 
-
+}
     
 
 

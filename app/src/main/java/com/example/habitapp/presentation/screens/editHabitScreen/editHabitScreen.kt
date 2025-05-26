@@ -19,6 +19,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
@@ -33,6 +34,7 @@ import com.example.habitapp.data.habit.Habit
 import com.example.habitapp.presentation.components.CustomButton
 import com.example.habitapp.presentation.components.CustomTextFieldHabit
 import com.example.habitapp.presentation.screens.editHabitScreen.viewmodel.EditViewModel
+import com.example.habitapp.util.Util.Companion.showMessage
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -47,6 +49,8 @@ fun EditHabitScreen(
     val keyboardController = LocalSoftwareKeyboardController.current
     val focusManager = LocalFocusManager.current
     val coroutineScope = rememberCoroutineScope()
+    val context = LocalContext.current
+
     LaunchedEffect(key1 = selectedHabit) {
         vm.setSelectedHabit(selectedHabit)
     }
@@ -129,12 +133,16 @@ fun EditHabitScreen(
                     stringResource(R.string.update_habit),
                     clickButton = {
                         coroutineScope.launch {
-                            vm.updateHabit()
+                            val success = vm.updateHabit()
                             keyboardController?.hide()
-                            if (selectedHabit.group != vm.group) {
-                                navigateToHomeScreen()
+                            if (success) {
+                                if (selectedHabit.group != vm.group) {
+                                    navigateToHomeScreen()
+                                } else {
+                                    navigateBack()
+                                }
                             } else {
-                                navigateBack()
+                                showMessage( context, "Failed to update habit")
                             }
                         }
                     }
