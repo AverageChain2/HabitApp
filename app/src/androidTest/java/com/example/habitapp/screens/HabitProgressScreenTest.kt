@@ -27,7 +27,7 @@ class HabitProgressScreenTest : ScreenTest() {
 
 
     @Test
-    fun `check state of progress screen`() {
+    fun `check state of progress screen for today`() {
         login()
         rule.onNode(habitCard(VALID_UNIT, VALID_GOAL, VALID_TIMEFRAME, VALID_GROUP)).performClick()
         rule.onNode(suspendButton).assertExists()
@@ -45,8 +45,26 @@ class HabitProgressScreenTest : ScreenTest() {
         rule.onNode(updateButton).assertExists()
 
 
+    }
 
+    @Test
+    fun `check state of progress screen for yesterday`() {
+        login()
+        rule.onNode(dateSelectorLeft).performClick()
+        rule.onNode(habitCard(VALID_UNIT, VALID_GOAL, VALID_TIMEFRAME, VALID_GROUP)).performClick()
+        rule.onNode(suspendButton).assertDoesNotExist()
+        rule.onNode(editButton).assertExists()
+        rule.onNode(unSuspendButton).assertDoesNotExist()
+        rule.onNode(deleteButton).assertDoesNotExist()
+        rule.onNode(progressIndicator).assertExists()
+        val pageTitle =
+            hasText(rule.activity.getString(R.string.update_progress_habit))
+        rule.onNode(pageTitle).assertExists()
 
+        rule.onNode(progressText(VALID_UNIT, VALID_GOAL, VALID_TIMEFRAME, VALID_GROUP)).assertExists()
+
+        rule.onNode(progressTextField).assertExists()
+        rule.onNode(updateButton).assertExists()
 
 
     }

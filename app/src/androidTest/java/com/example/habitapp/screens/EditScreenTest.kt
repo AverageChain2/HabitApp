@@ -78,6 +78,18 @@ class EditScreenTest : ScreenTest() {
         inputHabit(EDIT_UNIT, VALID_GOAL, VALID_TIMEFRAME, VALID_GROUP)
         rule.onNode(updateButton).performClick()
 
+        //Check that the user is redirected to the progress page and habit has been edited
+        val pageTitle =
+            hasText(rule.activity.getString(R.string.update_progress_habit))
+        rule.onNode(progressText(EDIT_UNIT, VALID_GOAL, VALID_TIMEFRAME, VALID_GROUP)).assertExists()
+
+        // Reset habit back to old value
+        rule.onNode(editButton).performClick()
+
+        //Change text fields
+        inputHabit(VALID_UNIT, VALID_GOAL, VALID_TIMEFRAME, VALID_GROUP)
+        rule.onNode(updateButton).performClick()
+
 
     }
 

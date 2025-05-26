@@ -23,7 +23,8 @@ open abstract class ScreenTest {
     lateinit var loginButton : SemanticsMatcher
 
     //Home Screen
-    val groupSelect = hasContentDescription("group_select")
+    lateinit var groupSelect : SemanticsMatcher
+
 
     //Add Screen
     lateinit var unitTextField : SemanticsMatcher
@@ -31,8 +32,8 @@ open abstract class ScreenTest {
     lateinit var timeframeTextField : SemanticsMatcher
     lateinit var groupTextField : SemanticsMatcher
     lateinit var addHabitButton : SemanticsMatcher
-    lateinit var habitCard : SemanticsMatcher
-    
+    lateinit var addScreenText : SemanticsMatcher
+
     //Habit Progress Screen
     lateinit var progressTextField : SemanticsMatcher
     lateinit var updateButton : SemanticsMatcher
@@ -42,26 +43,19 @@ open abstract class ScreenTest {
     lateinit var deleteButton: SemanticsMatcher
     lateinit var editButton: SemanticsMatcher
 
-
-
-
-
-
-
-
     //Nav bar items
-    val bottomNavBar = hasContentDescription("bottom_nav")
-    val homeNavButton = hasContentDescription("navHome")
-    val addNavButton = hasContentDescription("navAdd")
-    val exitNavButton = hasContentDescription("navExit")
+    lateinit var bottomNavBar : SemanticsMatcher
+    lateinit var homeNavButton : SemanticsMatcher
+    lateinit var addNavButton : SemanticsMatcher
+    lateinit var exitNavButton : SemanticsMatcher
 
-    val dateSelector = hasContentDescription("date_selector")
-    val dateSelectorLeft = hasContentDescription("date_selector_left")
-    val dateSelectorNow = hasContentDescription("date_selector_now")
-    val dateSelectorRight = hasContentDescription("date_selector_right")
+    lateinit var dateSelector : SemanticsMatcher
+    lateinit var dateSelectorLeft : SemanticsMatcher
+    lateinit var dateSelectorNow : SemanticsMatcher
+    lateinit var dateSelectorRight : SemanticsMatcher
 
 
-    val progressIndicator = hasContentDescription("progress_indicator")
+    lateinit var progressIndicator : SemanticsMatcher
 
 
 
@@ -111,12 +105,17 @@ open fun setUp() {
 
     loginButton = hasText(rule.activity.getString(R.string.login_button))
 
+    //Home Screen
+
+    groupSelect = hasContentDescription("group_select")
+
     //Add Screen
     unitTextField = hasText(rule.activity.getString(R.string.habit_unit_hint))
     goalTextField = hasText(rule.activity.getString(R.string.habit_goal_hint))
     timeframeTextField = hasText(rule.activity.getString(R.string.habit_timeframe_hint))
     groupTextField = hasText(rule.activity.getString(R.string.habit_group_hint))
     addHabitButton = hasContentDescription(rule.activity.getString(R.string.add_button))
+    addScreenText = hasText(rule.activity.getString(R.string.add_habit))
     
     //Habit Progress Screen
     progressTextField = hasText(rule.activity.getString(R.string.habit_progress_hint))
@@ -127,7 +126,22 @@ open fun setUp() {
     deleteButton = hasContentDescription(rule.activity.getString(R.string.delete))
     editButton = hasContentDescription(rule.activity.getString(R.string.Edit))
 
-    
+    //Nav bar items
+    bottomNavBar = hasContentDescription("bottom_nav")
+    homeNavButton = hasContentDescription("navHome")
+    addNavButton = hasContentDescription("navAdd")
+    exitNavButton = hasContentDescription("navExit")
+
+    dateSelector = hasContentDescription("date_selector")
+    dateSelectorLeft = hasContentDescription("date_selector_left")
+    dateSelectorNow = hasContentDescription("date_selector_now")
+    dateSelectorRight = hasContentDescription("date_selector_right")
+
+
+    progressIndicator = hasContentDescription("progress_indicator")
+
+
+
 
 
 

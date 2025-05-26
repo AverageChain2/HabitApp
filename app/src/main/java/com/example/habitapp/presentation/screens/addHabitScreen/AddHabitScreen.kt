@@ -9,8 +9,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.semantics.contentDescription
-import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -20,7 +18,7 @@ import androidx.navigation.NavController
 import com.example.habitapp.R
 import com.example.habitapp.ViewModelFactory
 import com.example.habitapp.presentation.components.CustomButton
-import com.example.habitapp.presentation.components.CustomTextFieldAdd
+import com.example.habitapp.presentation.components.CustomTextFieldHabit
 import com.example.habitapp.presentation.screens.StandardLayout
 //import com.example.habitapp.presentation.screens.homeScreen.viewmodel
 import kotlinx.coroutines.launch
@@ -51,7 +49,7 @@ fun AddHabitScreen(
             )
 
             Column {
-                CustomTextFieldAdd(
+                CustomTextFieldHabit(
                     focusManager = focusManager,
                     stringResource(R.string.habit_unit_hint),
                     text = vm.unit,
@@ -60,7 +58,7 @@ fun AddHabitScreen(
                     vm.unitIsValid()
                 )
 
-                CustomTextFieldAdd(
+                CustomTextFieldHabit(
                     focusManager = focusManager,
                     stringResource(R.string.habit_goal_hint),
                     text = vm.goal.toString(),
@@ -70,7 +68,7 @@ fun AddHabitScreen(
                     isNumeric = true
                 )
 
-                CustomTextFieldAdd(
+                CustomTextFieldHabit(
                     focusManager = focusManager,
                     stringResource(R.string.habit_timeframe_hint),
                     text = vm.timeframe.toString(),
@@ -80,7 +78,7 @@ fun AddHabitScreen(
                     isNumeric = true
                 )
 
-                CustomTextFieldAdd(
+                CustomTextFieldHabit(
                     focusManager = focusManager,
                     stringResource(R.string.habit_group_hint),
                     text = vm.group,

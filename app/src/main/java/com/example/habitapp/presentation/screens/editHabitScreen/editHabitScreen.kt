@@ -31,7 +31,7 @@ import com.example.habitapp.R
 import com.example.habitapp.ViewModelFactory
 import com.example.habitapp.data.habit.Habit
 import com.example.habitapp.presentation.components.CustomButton
-import com.example.habitapp.presentation.components.CustomTextFieldAdd
+import com.example.habitapp.presentation.components.CustomTextFieldHabit
 import com.example.habitapp.presentation.screens.editHabitScreen.viewmodel.EditViewModel
 import kotlinx.coroutines.launch
 
@@ -90,7 +90,7 @@ fun EditHabitScreen(
             )
 
             Column {
-                CustomTextFieldAdd(
+                CustomTextFieldHabit(
                     focusManager = focusManager,
                     stringResource(R.string.habit_unit_hint),
                     text = vm.unit,
@@ -98,7 +98,7 @@ fun EditHabitScreen(
                     errorMessage = stringResource(R.string.habit_unit_error),
                     vm.unitIsValid()
                 )
-                CustomTextFieldAdd(
+                CustomTextFieldHabit(
                     focusManager = focusManager,
                     stringResource(R.string.habit_goal_hint),
                     text = vm.goal,
@@ -107,7 +107,7 @@ fun EditHabitScreen(
                     vm.goalIsValid(),
                     isNumeric = true
                 )
-                CustomTextFieldAdd(
+                CustomTextFieldHabit(
                     focusManager = focusManager,
                     stringResource(R.string.habit_timeframe_hint),
                     text = vm.timeframe,
@@ -116,7 +116,7 @@ fun EditHabitScreen(
                     vm.timeframeIsValid(),
                     isNumeric = true
                 )
-                CustomTextFieldAdd(
+                CustomTextFieldHabit(
                     focusManager = focusManager,
                     stringResource(R.string.habit_group_hint),
                     text = vm.group,

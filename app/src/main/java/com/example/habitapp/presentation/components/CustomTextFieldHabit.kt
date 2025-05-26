@@ -20,7 +20,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun CustomTextFieldAdd(
+fun CustomTextFieldHabit(
     focusManager: FocusManager,
     hintText: String,
     text: String,

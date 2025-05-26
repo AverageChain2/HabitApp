@@ -29,8 +29,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.semantics.contentDescription
-import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -40,7 +38,7 @@ import com.example.habitapp.R
 import com.example.habitapp.ViewModelFactory
 import com.example.habitapp.data.habit.Habit
 import com.example.habitapp.presentation.components.CustomButton
-import com.example.habitapp.presentation.components.CustomTextFieldAdd
+import com.example.habitapp.presentation.components.CustomTextFieldHabit
 import com.example.habitapp.presentation.components.ProgressBar
 import com.example.habitapp.presentation.components.ProgressIndicator
 import com.example.habitapp.presentation.screens.habitProgressScreen.viewmodel.HabitProgressScreenViewModel
@@ -116,13 +114,15 @@ fun HabitProgressScreen(
                                 )
                             }
                         } else {
-                            IconButton(onClick = {
-                                vm.suspendHabit()
-                            }) {
-                                Icon(
-                                    imageVector = Icons.Filled.PlayArrow,
-                                    contentDescription = stringResource(R.string.suspend),
-                                )
+                            if (selectedHabit.data?.date == LocalDate.now().toString()) {
+                                IconButton(onClick = {
+                                    vm.suspendHabit()
+                                }) {
+                                    Icon(
+                                        imageVector = Icons.Filled.PlayArrow,
+                                        contentDescription = stringResource(R.string.suspend),
+                                    )
+                                }
                             }
                         }
 
@@ -194,7 +194,7 @@ fun HabitProgressScreen(
                     )
 
                     Column {
-                        CustomTextFieldAdd(
+                        CustomTextFieldHabit(
                             focusManager = focusManager,
                             hintText = stringResource(R.string.habit_progress_hint),
                             text = vm.progress,
