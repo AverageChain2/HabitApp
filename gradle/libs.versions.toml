@@ -1,26 +1,33 @@
 [versions]
-agp = "8.8.2"
-firebaseBom = "33.11.0"
+agp = "8.10.0"
+firebaseBom = "33.14.0"
+hiltAndroidGradlePlugin = "2.55"
 kotlin = "2.1.10"
-coreKtx = "1.15.0"
+coreKtx = "1.16.0"
 junit = "4.13.2"
 junitVersion = "1.2.1"
 espressoCore = "3.6.1"
-lifecycleRuntimeKtx = "2.8.7"
+lifecycleRuntimeKtx = "2.9.0"
 activityCompose = "1.10.1"
-composeBom = "2025.03.00"
+composeBom = "2025.05.01"
 firebaseDatabaseKtx = "21.0.0"
-navigationRuntimeAndroid = "2.9.0-alpha08"
-navigationCompose = "2.8.9"
-runtimeLivedata = "1.7.8"
-uiTextGoogleFonts = "1.7.8"
-firebaseAuthKtx = "23.2.0"
+navigationRuntimeAndroid = "2.9.0"
+navigationCompose = "2.9.0"
+playServicesAuth = "21.3.0"
+rules = "1.6.1"
+runtimeLivedata = "1.8.2"
+uiTextGoogleFonts = "1.8.2"
+firebaseAuthKtx = "23.2.1"
 storage = "1.5.0"
-
+junitKtx = "1.2.1"
+workRuntime = "2.10.1"
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+androidx-rules = { module = "androidx.test:rules", version.ref = "rules" }
+androidx-work-runtime = { module = "androidx.work:work-runtime", version.ref = "workRuntime" }
 firebase-analytics = { module = "com.google.firebase:firebase-analytics" }
 firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebaseBom" }
+hilt-android-gradle-plugin = { module = "com.google.dagger:hilt-android-gradle-plugin", version.ref = "hiltAndroidGradlePlugin" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
@@ -41,6 +48,8 @@ androidx-runtime-livedata = { group = "androidx.compose.runtime", name = "runtim
 androidx-ui-text-google-fonts = { group = "androidx.compose.ui", name = "ui-text-google-fonts", version.ref = "uiTextGoogleFonts" }
 firebase-auth-ktx = { group = "com.google.firebase", name = "firebase-auth-ktx", version.ref = "firebaseAuthKtx" }
 androidx-storage = { group = "androidx.test.services", name = "storage", version.ref = "storage" }
+androidx-junit-ktx = { group = "androidx.test.ext", name = "junit-ktx", version.ref = "junitKtx" }
+play-services-auth = { module = "com.google.android.gms:play-services-auth", version.ref = "playServicesAuth" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

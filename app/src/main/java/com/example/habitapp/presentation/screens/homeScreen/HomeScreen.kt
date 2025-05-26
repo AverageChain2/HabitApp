@@ -1,55 +1,109 @@
 package com.example.habitapp.presentation.screens.homeScreen
 
 
+import com.example.habitapp.presentation.screens.homeScreen.viewmodel.HomeScreenViewmodel
+import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.sp
-import androidx.navigation.NavController
-import com.example.habitapp.presentation.components.DateSelector
-import com.example.habitapp.presentation.components.ProgressIndicator
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
+import com.example.habitapp.R
+import com.example.habitapp.ViewModelFactory
+import com.example.habitapp.data.habit.Habit
+import com.example.habitapp.presentation.components.DateSelector
 import com.example.habitapp.presentation.components.GroupSelect
-import com.example.habitapp.presentation.components.DateSelectorViewModel
-import com.example.habitapp.presentation.screens.OverallDisplay
+import com.example.habitapp.presentation.components.ProgressBar
+import com.example.habitapp.presentation.components.ProgressIndicator
+import com.example.habitapp.presentation.screens.StandardLayout
+import com.example.habitapp.presentation.screens.homeScreen.components.HabitCard
+import com.example.habitapp.util.Util.Companion.showMessage
+import com.google.firebase.auth.FirebaseAuth
+
+//import com.example.habitapp.presentation.screens.homeScreen.viewmodel.HomeScreenViewModelFactory
 
 @Composable
 fun HomeScreen(
     text: String,
+    selectHabit: (Habit) -> Unit,
+    navigateToLandingScreen: () -> Unit,
     navController: NavController,
-    dateSelectorViewModel: DateSelectorViewModel = viewModel(),
+//    dateSelectorViewModel: DateSelectorViewModel = viewModel(),
+    homeScreenViewModel: HomeScreenViewmodel = viewModel(factory = ViewModelFactory.Factory)
 
 )
 {
-    val selectedDate by dateSelectorViewModel.selectedDate.observeAsState()
-    OverallDisplay (navController = navController, content = { modifier ->
+    val selectedDate by homeScreenViewModel.selectedDate.collectAsState()
+    val userState by homeScreenViewModel.userState.collectAsState()
+    val groups by homeScreenViewModel.userGroups.collectAsState()
+    val selectedGroup by homeScreenViewModel.selectedGroup.collectAsState()
+
+
+        val context = LocalContext.current
+
+
+        StandardLayout (navController = navController, content = { modifier ->
 
     Column(
             modifier = modifier.padding()
         ) {
-            selectedDate?.let {
-                DateSelector(navController, Modifier, it, onDateChange = { newDate ->
-                    dateSelectorViewModel.onDateChange(newDate)})
+        DateSelector( Modifier, selectedDate, onDateChange = { newDate ->
+            homeScreenViewModel.onDateChange(newDate)})
+        ProgressIndicator(modifier, selectedDate, homeScreenViewModel.calculateOverallProgress())
+
+        if (groups.isNotEmpty() && selectedGroup != null) {
+            GroupSelect(groups.filterNotNull(), selectedGroup!!) { newGroup ->
+                homeScreenViewModel.onGroupChange( newGroup)
             }
-            selectedDate?.let { ProgressIndicator(modifier, it) }
-
-            GroupSelect()
-
+        }else {
             Text(
-                modifier = Modifier
-                    .align(Alignment.CenterHorizontally),
-                text = text,
-                textAlign = TextAlign.Center,
-                fontSize = 20.sp,
-                fontWeight = FontWeight.Bold,
+                text = stringResource(R.string.habits_null),
+                style = MaterialTheme.typography.headlineMedium
             )
+        }
+
+
+
+        when {
+            userState.isLoading -> {
+                ProgressBar()
+            }
+
+            userState.data.isNotEmpty() -> {
+
+
+
+                Column {
+                    userState.data.forEach { habit ->
+                        if (habit != null) {
+                            habit.date = selectedDate.toString()
+                            habit.group = selectedGroup.toString()
+                            Log.d("HomeScreen", "$habit ${habit.id}")
+                            selectedGroup?.let { HabitCard(modifier = Modifier, habit = habit, it,
+                                selectHabit,
+                                homeScreenViewModel::updateHabitToMaxProgress) }
+                        }
+
+                    }
+                }
+            }
+
+            userState.errorMessage.isNotBlank() -> {
+                showMessage(context, userState.errorMessage)
+            }
+        }
+
+
+
+
         }
     })
 }

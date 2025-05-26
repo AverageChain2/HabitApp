@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -20,17 +21,17 @@ import com.example.habitapp.presentation.components.CustomButton
 import com.example.habitapp.presentation.components.SmallSpacer
 import com.example.habitapp.presentation.components.CustomTextField
 import com.example.habitapp.presentation.screens.registerScreen.components.Register
+import com.example.habitapp.presentation.screens.registerScreen.viewmodel.RegisterViewModel
 import com.example.habitapp.util.Util.Companion.showMessage
 
 
 @Composable
 fun RegisterScreen(vm: RegisterViewModel = viewModel(factory = ViewModelFactory.Factory),
-                   navigateBack: () -> Unit) {
+                   navigateBack: () -> Unit, navigateToLogin: () -> Unit) {
     val context = LocalContext.current
     val keyboard = LocalSoftwareKeyboardController.current
     Scaffold(
         content = { padding ->
-            Text(text = "Enter details to sign up")
             Column(
                 modifier = Modifier
                     .fillMaxSize()
@@ -38,6 +39,11 @@ fun RegisterScreen(vm: RegisterViewModel = viewModel(factory = ViewModelFactory.
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
+                Text(
+                    text = stringResource(R.string.register),
+                    style = MaterialTheme.typography.headlineMedium
+                )
+                SmallSpacer()
                 CustomTextField(
                     stringResource(R.string.email),
                     text = vm.email,
@@ -84,6 +90,7 @@ fun RegisterScreen(vm: RegisterViewModel = viewModel(factory = ViewModelFactory.
         },
         showFailureToRegisterMessage = {
             showMessage(context, "Unable to create sign up due to permissions")
-        }
+        },
+        navigateToLogin = navigateToLogin
     )
 }

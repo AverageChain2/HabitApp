@@ -5,6 +5,7 @@
     <string name="login_button">Login</string>
     <string name="today">Today</string>
     <string name="yesterday">Yesterday</string>
+    <string name="register_button">Register</string>
 
     <!-- Responses -->
     <string name="id_hint">Id</string>
@@ -32,4 +33,35 @@ password</string>
     <string name="sign_up_button">Sign Up</string>
     <string name="back_button">Back</string>
     <string name="submit_button">Submit</string>
+
+    <!-- Labels -->
+    <string name="add_habit">Add Habit</string>
+    <string name="habit_unit_hint">Enter Unit (e.g. book, press-up, pages)</string>
+    <string name="habit_progress_hint">Enter Progress (number)</string>
+    <string name="habit_goal_hint">Set a Goal (e.g. 10, 30)</string>
+    <string name="habit_timeframe_hint">Choose Timeframe (e.g. 1, 5, 10)</string>
+    <string name="habit_group_hint">Select Group (e.g., fitness, reading)</string>
+
+    <!-- Error Messages -->
+    <string name="habit_unit_error">Unit cannot be empty</string>
+    <string name="habit_progress_error">Progress cannot be empty</string>
+    <string name="habit_goal_error">Goal must be a positive number</string>
+    <string name="habit_timeframe_error">Timeframe must be valid</string>
+    <string name="habit_group_error">Group cannot be empty</string>
+
+    <!-- Button Text -->
+    <string name="edit_habit">Edit</string>
+    <string name="update_habit">Update</string>
+    <string name="update_progress_habit">Update habit progress.</string>
+    <string name="suspended">Suspended</string>
+    <string name="login">Login</string>
+    <string name="register">Register</string>
+    <string name="LandingScreenText1">Welcome to HabitApp</string>
+    <string name="LandingScreenText2">Habits Made Easy</string>
+    <string name="habits_null">No habits found, add a habit to view them here.</string>
+    <string name="unsupend">UnSuspend</string>
+    <string name="suspend">Suspend</string>
+    <string name="delete">Delete</string>
+    <string name="Edit">Edit</string>
+    <string name="group_select">groupSelect</string>
 </resources>

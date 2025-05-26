@@ -10,6 +10,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
@@ -17,11 +19,11 @@ import androidx.compose.ui.unit.sp
 
 @Composable
 fun CustomTextField(hintText: String,
-                    text: String,
-                    isPasswordField: Boolean,
-                    onValueChange: (String) -> Unit,
-                    errorMessage: String,
-                    errorPresent: Boolean){
+                       text: String,
+                       isPasswordField: Boolean = false,
+                       onValueChange: (String) -> Unit,
+                       errorMessage: String,
+                       errorPresent: Boolean){
     Surface(modifier = Modifier.padding(10.dp)) {
         OutlinedTextField(
             value = text,
@@ -31,6 +33,7 @@ fun CustomTextField(hintText: String,
             label = {
                 Text(hintText)
             },
+            modifier = Modifier.semantics { contentDescription = hintText },
             visualTransformation = if (isPasswordField)
                 PasswordVisualTransformation('*') else VisualTransformation.None
         )
