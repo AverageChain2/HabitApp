@@ -34,7 +34,7 @@ class HabitProgressScreenTest : ScreenTest() {
             hasText(rule.activity.getString(R.string.update_progress_habit))
         rule.onNode(pageTitle).assertExists()
 
-        rule.onNode(progressText(VALID_UNIT, VALID_GOAL, VALID_TIMEFRAME, VALID_GROUP)).assertExists()
+        rule.onNode(progressText(VALID_UNIT, VALID_GOAL, VALID_TIMEFRAME)).assertExists()
 
         rule.onNode(progressTextField).assertExists()
         rule.onNode(updateButton).assertExists()
@@ -58,7 +58,7 @@ class HabitProgressScreenTest : ScreenTest() {
             hasText(rule.activity.getString(R.string.update_progress_habit))
         rule.onNode(pageTitle).assertExists()
 
-        rule.onNode(progressText(VALID_UNIT, VALID_GOAL, VALID_TIMEFRAME, VALID_GROUP)).assertExists()
+        rule.onNode(progressText(VALID_UNIT, VALID_GOAL, VALID_TIMEFRAME)).assertExists()
 
         rule.onNode(progressTextField).assertExists()
         rule.onNode(updateButton).assertExists()

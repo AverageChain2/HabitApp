@@ -19,9 +19,12 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
+import com.example.habitapp.R
+
 
 
 @Composable
@@ -31,7 +34,7 @@ fun GroupSelect(groups: List<String>, selectedGroup: String, onGroupChange: (Str
     Box(modifier = Modifier.height(50.dp).fillMaxWidth().border(1.dp, MaterialTheme.colorScheme.onBackground)){
         TextButton (onClick = {expanded = true}, modifier = Modifier.fillMaxWidth()) {
             Text(selectedGroup)
-            Icon(Icons.Default.MoreVert, contentDescription = "Description")
+            Icon(Icons.Default.MoreVert, contentDescription = stringResource(R.string.group_select))
         }
         DropdownMenu(expanded = expanded, onDismissRequest = { expanded = false }, Modifier.semantics{contentDescription = "group_select"}) {
             groups.forEach { group ->

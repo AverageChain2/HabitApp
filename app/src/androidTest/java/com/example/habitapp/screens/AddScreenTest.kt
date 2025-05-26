@@ -1,6 +1,7 @@
 package com.example.habitapp.screens
 
 import androidx.compose.ui.test.hasText
+import androidx.compose.ui.test.onFirst
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performTextInput
 import com.example.habitapp.R
@@ -44,7 +45,7 @@ class AddScreenTest : ScreenTest() {
 
         //Check that the user is redirected to the home page
         rule.onNode(dateSelector).assertExists()
-        rule.onNode(habitCard(VALID_UNIT, VALID_GOAL, VALID_TIMEFRAME, VALID_GROUP)).assertExists()
+        rule.onAllNodes(habitCard(VALID_UNIT, VALID_GOAL, VALID_TIMEFRAME, VALID_GROUP)).onFirst().assertExists()
     }
 
     @Test

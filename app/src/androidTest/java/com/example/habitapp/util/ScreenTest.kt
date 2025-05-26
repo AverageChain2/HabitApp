@@ -108,7 +108,7 @@ open fun setUp() {
 
     //Home Screen
 
-    groupSelect = hasContentDescription("group_select")
+    groupSelect = hasContentDescription(rule.activity.getString(R.string.group_select))
 
     //Add Screen
     unitTextField = hasText(rule.activity.getString(R.string.habit_unit_hint))
@@ -176,7 +176,7 @@ open fun setUp() {
     fun habitCard(unit: String, goal: String, timeframe: String, group: String): SemanticsMatcher {
         return hasContentDescription("Habit + $unit + $goal + $timeframe + $group")
     }
-    fun progressText(unit: String, goal: String, timeframe: String, group: String): SemanticsMatcher {
+    fun progressText(unit: String, goal: String, timeframe: String): SemanticsMatcher {
         return hasText("${goal} "  +
                 (if (goal.toInt() < 2) unit
                 else if (unit.endsWith("s")) unit

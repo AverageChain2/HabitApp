@@ -71,7 +71,7 @@ class EditScreenTest : ScreenTest() {
 
         rule.onNode(pageTitle).assertExists()
         rule.onNode(progressTextField).assertExists()
-        rule.onNode(progressText(EDIT_UNIT, EDIT_GOAL, EDIT_TIMEFRAME, VALID_GROUP)).assertExists()
+        rule.onNode(progressText(EDIT_UNIT, EDIT_GOAL, EDIT_TIMEFRAME)).assertExists()
 
         // Check that home page updates
         rule.onNode(backArrowButton).performClick()
@@ -89,7 +89,7 @@ class EditScreenTest : ScreenTest() {
         rule.onNode(updateButton).performClick()
 
         //Check that habit has been reset
-        rule.onNode(progressText(VALID_UNIT, VALID_GOAL, VALID_TIMEFRAME, VALID_GROUP)).assertExists()
+        rule.onNode(progressText(VALID_UNIT, VALID_GOAL, VALID_TIMEFRAME)).assertExists()
 
 
 
@@ -109,7 +109,7 @@ class EditScreenTest : ScreenTest() {
 
         //Check that the user is redirected to the progress page and habit has been edited
         hasText(rule.activity.getString(R.string.update_progress_habit))
-        rule.onNode(progressText(EDIT_UNIT, VALID_GOAL, VALID_TIMEFRAME, VALID_GROUP)).assertExists()
+        rule.onNode(progressText(EDIT_UNIT, VALID_GOAL, VALID_TIMEFRAME)).assertExists()
 
         // Reset habit back to old value
         rule.onNode(editButton).performClick()

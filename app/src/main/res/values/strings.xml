@@ -63,4 +63,5 @@ password</string>
     <string name="suspend">Suspend</string>
     <string name="delete">Delete</string>
     <string name="Edit">Edit</string>
+    <string name="group_select">groupSelect</string>
 </resources>
